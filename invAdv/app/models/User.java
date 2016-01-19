@@ -14,9 +14,17 @@ public class User extends Model {
 	public boolean isAdmin;
 
 	public User(String email, String password, String fullname) {
-		this.email = email;
-		this.password = password;
-		this.fullname = fullname;
+		if (find("byEmail", email).first() == null) {
+			this.email = email;
+			this.password = password;
+			this.fullname = fullname;
+			isAdmin = false;
+		} else {
+			System.out.println("the user already exists");
+		}
 	}
 
+	public static User connect(String email, String password) {
+		return find("byEmailAndPassword", email, password).first();
+	}
 }
