@@ -31,6 +31,8 @@ public class User extends Model {
 			this.password = password;
 			this.fullname = fullname;
 			this.isAdmin = isAdmin;
+			this.comments = new ArrayList<>();
+			this.investementAdvices = new ArrayList<>();
 		} else {
 			System.out.println("the user already exists");
 		}

@@ -16,9 +16,11 @@ public class InvestementAdvice extends Model {
 	@ManyToOne
 	public User author;
 
-	public enum type {
+	public enum Type {
 		SHORT_TERM, MIDDLE_TERM, LONG_TERM
 	};
+
+	public Type type;
 
 	public HashMap<Long, Double> capitalGains;
 
@@ -30,18 +32,44 @@ public class InvestementAdvice extends Model {
 	@OneToOne
 	public Category category;
 
-	public InvestementAdvice(Date creationDate, String title, User author, double capitalGain, double confidenceIndex,
-			List<Comment> comments, Category category) {
+	public InvestementAdvice(Date creationDate, String title, User author, Type type, double capitalGain,
+			double confidenceIndex, Category category) {
 		super();
 		this.creationDate = creationDate;
 		this.title = title;
 		this.author = author;
 		this.capitalGains = new HashMap<>();
-		capitalGains.put(author.id,capitalGain);
+		capitalGains.put(author.id, capitalGain);
 		this.confidenceIndexs = new HashMap<>();
-		confidenceIndexs.put(author.id,confidenceIndex);
-		this.comments = comments;
+		confidenceIndexs.put(author.id, confidenceIndex);
+		this.comments = new ArrayList<>();
 		this.category = category;
+		this.type = type;
+		author.investementAdvices.add(this);
+	}
+
+	public boolean addCapitalGain(Long userId, double newCapitalGain) {
+		return (capitalGains.putIfAbsent(userId, newCapitalGain) == null);
+	}
+
+	public boolean addConfidenceIndex(Long userId, double newConfidenceIndex) {
+		return (confidenceIndexs.putIfAbsent(userId, newConfidenceIndex) == null);
+	}
+
+	public double getCapitalGain() {
+		double avg = 0;
+		for (Long key : capitalGains.keySet()) {
+			avg += capitalGains.get(key);
+		}
+		return avg / capitalGains.size();
+	}
+
+	public double getConfidenceIndex() {
+		double avg = 0;
+		for (Long key : confidenceIndexs.keySet()) {
+			avg += confidenceIndexs.get(key);
+		}
+		return avg / confidenceIndexs.size();
 	}
 
 }
