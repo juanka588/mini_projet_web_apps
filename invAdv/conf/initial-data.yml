@@ -36,7 +36,7 @@ Type(LONG_TERM):
     type: LONG TERM
 
 InvestementAdvice(adv1):
-    creationDate:    2015-26-01
+    creationDate:    2016-01-26
     title:           Investement1
     content:         New Advice Content
     author:          bob
@@ -46,7 +46,7 @@ InvestementAdvice(adv1):
     category:        cat121
     
 InvestementAdvice(adv2):
-    creationDate:    2015-10-01
+    creationDate:    2016-02-10
     title:           Investement2
     content:         New Advice Content2
     author:          jeff

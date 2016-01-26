@@ -15,7 +15,7 @@ public class Comment extends Model {
 
 	@ManyToOne
 	public InvestementAdvice advice;
-	
+
 	public Date commentDate;
 
 	public Comment(User author, String comment, InvestementAdvice advice, Date commentDate) {
@@ -28,4 +28,8 @@ public class Comment extends Model {
 		author.comments.add(this);
 	}
 
+	@Override
+	public String toString() {
+		return comment;
+	}
 }

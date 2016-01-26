@@ -70,4 +70,20 @@ public class InvestementAdvice extends Model {
 		return avg / confidenceIndexs.size();
 	}
 
+	public void addComment(String fullname, String content) {
+		User author = User.find("byFullname", fullname).first();
+		Comment comment = new Comment(author, content, this, new Date()).save();
+		comments.add(comment);
+		this.save();
+		System.out.println("comment added succesfully "+comment.toString() );
+	}
+
+	public InvestementAdvice previous() {
+		return InvestementAdvice.find("creationDate < ? order by creationDate desc", creationDate).first();
+	}
+
+	public InvestementAdvice next() {
+		return InvestementAdvice.find("creationDate > ? order by creationDate asc", creationDate).first();
+	}
+
 }
