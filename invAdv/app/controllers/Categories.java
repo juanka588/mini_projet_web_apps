@@ -1,7 +1,6 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
+import models.Category;
 
 @CRUD.For(Category.class)
 public class Categories extends CRUD {

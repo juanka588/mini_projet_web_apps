@@ -5,13 +5,17 @@ import javax.persistence.*;
 
 import com.mchange.v2.lang.ThreadGroupUtils;
 
+import play.data.validation.*;
 import play.db.jpa.*;
 
 @Entity
 public class User extends Model {
-
+	@Email
+	@Required
 	public String email;
+	@Required
 	public String password;
+	@Required
 	public String fullname;
 	public boolean isAdmin;
 

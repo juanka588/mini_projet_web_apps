@@ -5,14 +5,24 @@ import javax.persistence.*;
 
 import org.apache.commons.collections.map.HashedMap;
 
+import play.data.validation.MaxSize;
+import play.data.validation.*;
 import play.db.jpa.*;
 
 @Entity
 public class InvestementAdvice extends Model {
 
+	@Required
 	public Date creationDate;
+
+	@Required
 	public String title;
+
+	@Required
+	@MaxSize(10000)
 	public String content;
+
+	@Required
 	@ManyToOne
 	public User author;
 
@@ -75,7 +85,7 @@ public class InvestementAdvice extends Model {
 		Comment comment = new Comment(author, content, this, new Date()).save();
 		comments.add(comment);
 		this.save();
-		System.out.println("comment added succesfully "+comment.toString() );
+		System.out.println("comment added succesfully " + comment.toString());
 	}
 
 	public InvestementAdvice previous() {

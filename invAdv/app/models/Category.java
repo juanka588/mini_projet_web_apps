@@ -3,6 +3,7 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import play.data.validation.*;
 import play.db.jpa.*;
 
 @Entity
@@ -14,6 +15,7 @@ public class Category extends Model {
 	@ManyToOne
 	public Category parentCategory;
 
+	@Required
 	public String categoryTitle;
 
 	public Category(Category parentCategory, String categoryTitle) {

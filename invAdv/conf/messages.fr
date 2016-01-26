@@ -1,0 +1,15 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+title=Titre
+content=Contenu
+creationDate=Publie le
+author=Auteur
+type=Type
+email=Email
+category=Categorie
+password=Mot de passe
+fullname=Nom
+isAdmin=Utilisateur est admin
+categoryTitle=Titre Categorie
+parentCategory=Parent
