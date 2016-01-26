@@ -12,14 +12,11 @@ public class InvestementAdvice extends Model {
 
 	public Date creationDate;
 	public String title;
-
+	public String content;
 	@ManyToOne
 	public User author;
 
-	public enum Type {
-		SHORT_TERM, MIDDLE_TERM, LONG_TERM
-	};
-
+	@OneToOne
 	public Type type;
 
 	public HashMap<Long, Double> capitalGains;
@@ -32,11 +29,12 @@ public class InvestementAdvice extends Model {
 	@OneToOne
 	public Category category;
 
-	public InvestementAdvice(Date creationDate, String title, User author, Type type, double capitalGain,
-			double confidenceIndex, Category category) {
+	public InvestementAdvice(Date creationDate, String title, String content, User author, Type type,
+			double capitalGain, double confidenceIndex, Category category) {
 		super();
 		this.creationDate = creationDate;
 		this.title = title;
+		this.content = content;
 		this.author = author;
 		this.capitalGains = new HashMap<>();
 		capitalGains.put(author.id, capitalGain);

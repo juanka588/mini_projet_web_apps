@@ -15,3 +15,42 @@ User(paul):
     email:          paul@gmail.com
     password:       secret
     fullname:       Paul  
+
+Category(cat1):
+    parentCategory: null
+    categoryTitle:  "finances économique"
+
+Category(cat11):
+    parentCategory: cat1
+    categoryTitle:  "Immobilier"
+    
+Category(cat12):
+    parentCategory: cat1
+    categoryTitle:  "matière première"
+    
+Category(cat121):
+    parentCategory: cat12
+    categoryTitle:  "nouvelles technologies"       
+
+Type(LONG_TERM):
+    type: LONG TERM
+
+InvestementAdvice(adv1):
+    creationDate:    2015-26-01
+    title:           Investement1
+    content:         New Advice Content
+    author:          bob
+    type:            LONG_TERM
+    capitalGain:     35
+    confidenceIndex: 0.05
+    category:        cat121
+    
+InvestementAdvice(adv2):
+    creationDate:    2015-10-01
+    title:           Investement2
+    content:         New Advice Content2
+    author:          jeff
+    type:            LONG_TERM
+    capitalGain:     35
+    confidenceIndex: 0.05
+    category:        cat12

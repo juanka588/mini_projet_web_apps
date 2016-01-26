@@ -18,7 +18,8 @@ public class Category extends Model {
 
 	public Category(Category parentCategory, String categoryTitle) {
 		super();
-		if (find("byCategoryTitle", categoryTitle).first() == null) {
+		Category selected = find("byCategoryTitle", categoryTitle).first();
+		if (selected == null) {
 			this.parentCategory = parentCategory;
 			this.categoryTitle = categoryTitle;
 			this.categoryChilds = new ArrayList<>();
@@ -30,4 +31,9 @@ public class Category extends Model {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return categoryTitle;
+	}
+	
 }
