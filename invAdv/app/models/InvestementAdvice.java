@@ -29,9 +29,13 @@ public class InvestementAdvice extends Model {
 	@OneToOne
 	public Type type;
 
-	public HashMap<Long, Double> capitalGains;
+	public HashMap<Long, Double> capitalGains ;
 
 	public HashMap<Long, Double> confidenceIndexs;
+	
+	public double capitalGain;
+	
+	public double confidenceIndex;
 
 	@OneToMany(mappedBy = "advice")
 	public List<Comment> comments;
@@ -46,25 +50,57 @@ public class InvestementAdvice extends Model {
 		this.title = title;
 		this.content = content;
 		this.author = author;
-		this.capitalGains = new HashMap<>();
 		capitalGains.put(author.id, capitalGain);
-		this.confidenceIndexs = new HashMap<>();
 		confidenceIndexs.put(author.id, confidenceIndex);
 		this.comments = new ArrayList<>();
 		this.category = category;
 		this.type = type;
 		author.investementAdvices.add(this);
+		this.capitalGain = capitalGain;
+		this.confidenceIndex = confidenceIndex;
+	}
+	
+	public double getCapitalGain() {
+		return capitalGain;
+	}
+
+	public void setCapitalGain(double capitalGain) {
+		this.capitalGain = capitalGain;
+	}
+
+	public double getConfidenceIndex() {
+		return confidenceIndex;
+	}
+
+	public void setConfidenceIndex(double confidenceIndex) {
+		this.confidenceIndex = confidenceIndex;
 	}
 
 	public boolean addCapitalGain(Long userId, double newCapitalGain) {
-		return (capitalGains.putIfAbsent(userId, newCapitalGain) == null);
+		if (capitalGains==null){
+			this.capitalGains= new HashMap<Long, Double>();
+			this.capitalGains.put(author.id, capitalGain);
+		}
+		boolean b = (capitalGains.putIfAbsent(userId, newCapitalGain) == null);
+		this.capitalGain = getcapital();
+		this.save();
+		return b;
+		
 	}
 
 	public boolean addConfidenceIndex(Long userId, double newConfidenceIndex) {
-		return (confidenceIndexs.putIfAbsent(userId, newConfidenceIndex) == null);
+		if (confidenceIndexs==null){
+			this.confidenceIndexs=  new HashMap<Long, Double>();
+			this.confidenceIndexs.put(author.id, confidenceIndex);
+		}
+		boolean b =  (confidenceIndexs.putIfAbsent(userId, newConfidenceIndex) == null);
+		this.confidenceIndex =  getconfidence();
+		this.save();
+		return b;
 	}
 
-	public double getCapitalGain() {
+	
+	public double getcapital() {
 		double avg = 0;
 		for (Long key : capitalGains.keySet()) {
 			avg += capitalGains.get(key);
@@ -72,8 +108,8 @@ public class InvestementAdvice extends Model {
 		return avg / capitalGains.size();
 	}
 
-	public double getConfidenceIndex() {
-		double avg = 0;
+	public double getconfidence() {
+		double avg = 0.0;
 		for (Long key : confidenceIndexs.keySet()) {
 			avg += confidenceIndexs.get(key);
 		}

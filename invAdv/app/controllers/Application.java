@@ -36,4 +36,18 @@ public class Application extends Controller {
         flash.success("Thanks for posting %s", author);
         show(postId);
     }
+    
+    public static void postCapitalGain(Long postId,  @Required String author, @Required double capitalGain, @Required double confidenceIndex) {
+        InvestementAdvice post = InvestementAdvice.findById(postId);
+        User A = User.find("byFullname", author).first();
+        if (validation.hasErrors()) {
+            render("Application/show.html", post);
+        }
+        boolean c = post.addCapitalGain(A.id, capitalGain);
+        boolean d = post.addConfidenceIndex(A.id, confidenceIndex);
+        if ((c)&(d)){
+        	flash.success("Thanks for posting %s", author);
+        }
+        show(postId);
+    }
 }

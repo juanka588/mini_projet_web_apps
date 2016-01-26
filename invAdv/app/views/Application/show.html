@@ -20,6 +20,34 @@
     <p class="success">${flash.success}</p>
 #{/if}
 #{display post:post, as:'full' /}
+
+<h3>Participer à l'évaluation</h3>
+
+#{form @Application.postCapitalGain(post.id)}
+ 
+    #{ifErrors}
+        <p class="error">
+            All fields are required!
+        </p>
+    #{/ifErrors}
+ 
+    <p>
+        <label for="author">Your name: </label>
+        <input type="text" name="author" id="author" value="${params.author}" />
+    </p>
+    <p>
+        <label for="capitalGain">capital Gain: </label>
+        <input type="text" name="capitalGain" id="capitalGain" value="${params.capitalGain}"/>
+    </p>
+     <p>
+        <label for="confidenceIndex">Confidence Index: </label>
+        <input type="text" name="confidenceIndex" id="confidenceIndex" value="${params.confidenceIndex}"/>
+    </p>
+    <br>
+    <p>
+        <input type="submit" value="Submit your capital Gain" />
+    </p>
+#{/form}
 <h3>Post a comment</h3>
  
 #{form @Application.postComment(post.id)}

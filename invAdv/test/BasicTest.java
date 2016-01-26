@@ -82,8 +82,8 @@ public class BasicTest extends UnitTest {
 		assertEquals(2, advice.capitalGains.size());
 		assertEquals(2, advice.confidenceIndexs.size());
 
-		assertEquals(400, advice.getCapitalGain(), 0.001);
-		assertEquals(0.035, advice.getConfidenceIndex(), 0.001);
+		assertEquals(400, advice.getcapital(), 0.001);
+		assertEquals(0.035, advice.getconfidence(), 0.001);
 
 		advice.addCapitalGain(id, 300);
 		advice.addConfidenceIndex(id, 0.05);

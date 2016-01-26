@@ -15,3 +15,6 @@ fullname=Full name
 isAdmin=User is admin
 categoryTitle=Category Title
 parentCategory=Parent
+secure.username=Your email:
+secure.password=Your password:
+secure.signin=Log in now
