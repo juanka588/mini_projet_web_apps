@@ -50,7 +50,7 @@ public class BasicTest extends UnitTest {
 		User user = User.find("byEmail", "jk2@gmail.com").first();
 		double capitalGain = 500, confidenceIndex = 0.02;
 		Date currentDate = new Date();
-		Type type=new Type("LONG TERM").save();
+		Type type=new Type("MOYEN TERM").save();
 		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
 				confidenceIndex, null).save();
 		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user).first();
@@ -71,7 +71,7 @@ public class BasicTest extends UnitTest {
 		User user = User.find("byEmail", "jk2@gmail.com").first();
 		double capitalGain = 500, confidenceIndex = 0.02;
 		Date currentDate = new Date();
-		Type type=new Type("LONG TERM").save();
+		Type type=new Type("MOYEN TERM").save();
 		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
 				confidenceIndex, null).save();
 		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user).first();
@@ -105,7 +105,7 @@ public class BasicTest extends UnitTest {
 		double capitalGain = 500, confidenceIndex = 0.02;
 
 		Date currentDate = new Date();
-		Type type=new Type("LONG TERM").save();
+		Type type=new Type("MOYEN TERM").save();
 		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
 				confidenceIndex, null).save();
 
