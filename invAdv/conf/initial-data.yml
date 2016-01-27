@@ -16,6 +16,21 @@ User(paul):
     password:       secret
     fullname:       Paul  
 
+User(ana):
+    email:          ana@gmail.com
+    password:       secret
+    fullname:       Ana
+    
+User(mark):
+    email:          mark@gmail.com
+    password:       secret
+    fullname:       Mark    
+    
+User(rin):
+    email:          rin@gmail.com
+    password:       secret
+    fullname:       Rin  
+
 Category(cat1):
     parentCategory: null
     categoryTitle:  "finances économique"
@@ -34,6 +49,12 @@ Category(cat121):
 
 Type(LONG_TERM):
     type: LONG TERM
+    
+Type(MIDDLE_TERM):
+    type: MIDDLE TERM
+    
+Type(SHORT_TERM):
+    type: SHORT TERM
 
 InvestementAdvice(adv1):
     creationDate:    2016-01-26
@@ -53,4 +74,34 @@ InvestementAdvice(adv2):
     type:            LONG_TERM
     capitalGain:     35
     confidenceIndex: 0.05
+    category:        cat12
+    
+InvestementAdvice(adv3):
+    creationDate:    2016-03-10
+    title:           Investement 3
+    content:         New Advice Content New Advice Content New Advice Content  New Advice Content
+    author:          ana
+    type:            SHORT_TERM
+    capitalGain:     50
+    confidenceIndex: 0.15
+    category:        cat121
+
+InvestementAdvice(adv4):
+    creationDate:    2016-04-08
+    title:           Investement for Food
+    content:         Food Food Food Food Food Food Food Food Food Food Food 
+    author:          bob
+    type:            MIDDLE_TERM
+    capitalGain:     39
+    confidenceIndex: 0.13
+    category:        cat1
+    
+InvestementAdvice(adv2):
+    creationDate:    2016-05-08
+    title:           Investement for Peace
+    content:         Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love 
+    author:          rin
+    type:            LONG_TERM
+    capitalGain:     2
+    confidenceIndex: 0.002
     category:        cat12

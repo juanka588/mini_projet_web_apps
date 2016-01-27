@@ -76,7 +76,6 @@ public class InvestementAdvice extends Model {
 
 	public boolean addCapitalGain(Long userId, double newCapitalGain) {
 		if (capitalGains == null) {
-			System.out.println("la liste capital gain est vide on la remplie");
 			this.capitalGains = new HashMap<Long, Double>();
 			this.capitalGains.put(author.id, capitalGain);
 		}
@@ -89,7 +88,6 @@ public class InvestementAdvice extends Model {
 
 	public boolean addConfidenceIndex(Long userId, double newConfidenceIndex) {
 		if (confidenceIndexs == null) {
-			System.out.println("la liste confidence index est vide on la remplie");
 			this.confidenceIndexs = new HashMap<Long, Double>();
 			this.confidenceIndexs.put(author.id, confidenceIndex);
 		}
@@ -131,4 +129,8 @@ public class InvestementAdvice extends Model {
 		return InvestementAdvice.find("creationDate > ? order by creationDate asc", creationDate).first();
 	}
 
+	@Override
+	public String toString() {
+		return title;
+	}
 }
