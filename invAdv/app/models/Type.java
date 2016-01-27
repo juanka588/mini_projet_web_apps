@@ -7,7 +7,7 @@ import play.data.validation.*;
 import play.db.jpa.*;
 
 @Entity
-public class Type extends Model{
+public class Type extends Model {
 	@Required
 	@Unique
 	public String type;
@@ -15,5 +15,10 @@ public class Type extends Model{
 	public Type(String type) {
 		super();
 		this.type = type;
+	}
+
+	@Override
+	public String toString() {
+		return type;
 	}
 }
