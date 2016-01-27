@@ -47,9 +47,56 @@ public class Application extends Controller {
 		boolean c = post.addCapitalGain(A.id, capitalGain);
 		boolean d = post.addConfidenceIndex(A.id, confidenceIndex);
 		if ((c) & (d)) {
-			//post.save();
 			flash.success("Thanks for posting %s", author);
 		}
 		show(postId);
+	}
+	public static void listAdviceByTitle (  @Required String title){
+		InvestementAdvice frontPost = InvestementAdvice.find("byTitle",title).first();
+		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byTitle", title).from(1).fetch(10);
+		render(frontPost, olderPosts);	
+	}
+	
+	public static void listAdviceByCategory (  @Required String category){
+		System.out.println(category);
+		Category cat = Category.find("byCategoryTitle", category).first();
+		InvestementAdvice frontPost = InvestementAdvice.find("byCategory",cat).first();
+		List<InvestementAdvice> olderPosts =InvestementAdvice.find("byCategory", cat).from(1).fetch();
+		//SubCategory(olderPosts, cat  );
+		//System.out.println(olderPosts.size());
+		
+		if (!(cat.categoryChilds==null)){
+			if (!(cat.categoryChilds.isEmpty())) {
+				for (int i = 0; i < cat.categoryChilds.size(); i++) {
+					List<InvestementAdvice> Posts = InvestementAdvice.find("byCategory", cat.categoryChilds.get(i))
+							.fetch();
+					 olderPosts.addAll(Posts);
+					//SubCategory(olderPosts, cat.categoryChilds.get(i));
+				}
+			}
+			else {
+				System.out.println("c'est null");
+			}
+		}
+		render(frontPost, olderPosts);
+	}
+	public static void SubCategory(List<InvestementAdvice> olderPosts,Category cat  ){
+		if (!(cat.categoryChilds==null)){
+			if (!(cat.categoryChilds.isEmpty())) {
+				for (int i = 0; i < cat.categoryChilds.size(); i++) {
+					List<InvestementAdvice> Posts = InvestementAdvice.find("byCategory", cat.categoryChilds.get(i)).fetch();
+					// olderPosts.addAll(Posts);
+					SubCategory(olderPosts, cat.categoryChilds.get(i));
+				}
+			}
+			else {
+				System.out.println("c'est null");
+			}
+		}
+	}
+	
+	public static void getCat(){
+		List<Category> allCategories =  Category.all().fetch();
+		render( allCategories);
 	}
 }

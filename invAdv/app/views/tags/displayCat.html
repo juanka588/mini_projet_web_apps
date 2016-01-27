@@ -1,0 +1,8 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<div class="cat">
+	<h2 class="post-title">
+    	<a href="@{Application.listAdviceByCategory(_cat.categoryTitle)}">${_cat.categoryTitle}</a>
+	</h2>
+</div>
