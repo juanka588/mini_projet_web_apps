@@ -50,7 +50,7 @@ public class BasicTest extends UnitTest {
 		User user = User.find("byEmail", "jk2@gmail.com").first();
 		double capitalGain = 500, confidenceIndex = 0.02;
 		Date currentDate = new Date();
-		Type type=new Type("MOYEN TERM").save();
+		Type type=new Type("LONG TERM").save();
 		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
 				confidenceIndex, null).save();
 		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user).first();
@@ -59,9 +59,9 @@ public class BasicTest extends UnitTest {
 		assertEquals(advice.creationDate, currentDate);
 		assertEquals(advice.title, "test investement");
 		assertEquals(advice.type.type, "LONG TERM");
-		double ans1 = advice.capitalGains.get(user.id);
+		double ans1 = advice.capitalGain;
 		assertTrue(500 == ans1);
-		double ans2 = advice.confidenceIndexs.get(user.id);
+		double ans2 = advice.confidenceIndex;
 		assertTrue(ans2 == 0.02);
 	}
 
