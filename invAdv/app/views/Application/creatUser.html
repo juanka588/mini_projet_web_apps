@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'home' /}
+
+Veuillez remplir les champs pour vous connecter
+#{form @Application.createUser()}
+<input name="email" type="text" placeholder="email" value ="${params.email}"/>
+<input name="password" type="text" placeholder="password" value ="${params.password}"/>
+			<input name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
+			
+			
+			
+			<input type="submit" value="creer un compte" />
+			
+   #{/form}
