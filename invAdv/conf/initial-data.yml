@@ -34,6 +34,14 @@ User(rin):
 Category(cat1):
     parentCategory: null
     categoryTitle:  "finances économique"
+    
+Category(cat2):
+    parentCategory: null
+    categoryTitle:  "new cat 2"
+
+Category(cat21):
+    parentCategory: cat2
+    categoryTitle:  "new cat 21"
 
 Category(cat11):
     parentCategory: cat1

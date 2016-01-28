@@ -1,8 +1,17 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
-
-<div class="cat">
-	<h2 class="post-title">
+#{set title:'home' /}
+<div>
+	<h3>
     	<a href="@{Application.listAdviceByCategory(_cat.categoryTitle)}">${_cat.categoryTitle}</a>
-	</h2>
+    	 #{if _cat.categoryChilds.size()}
+    	 <ul>
+    	  
+    	 #{list items:_cat.categoryChilds, as:'allCat'}
+    	 <li>
+                #{displayCat cat:allCat /}
+                </li>
+         #{/list}
+         </ul>
+           #{/if}
+	</h3>
 </div>

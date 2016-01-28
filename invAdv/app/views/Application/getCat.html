@@ -1,11 +1,12 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'home' /}
 
-#{if allCategories.size()}
-   <div class="cat">
-            <h3>categories </h3>
-            #{list items:allCategories, as:'allCat'}
+#{if ParentCategories.size()}
+   <ul class="cat">
+            #{list items:ParentCategories, as:'allCat'}
+            <li>
                 #{displayCat cat:allCat /}
+                </li>
             #{/list}
-                </div>
+                </ul>
 #{/if}

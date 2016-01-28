@@ -11,14 +11,21 @@
  			<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
     </head>
     <body>
-        
+
         <div id="header">
             <div id="logo">
                 yabe.
             </div>
             <ul id="tools">
                 <li>
+                    #{if user}
+                    <a href="@{Secure.logout()}">Log out </a>
+                    #{/if}
+                    #{else}
                     <a href="@{Secure.login()}">Log in to write an advice </a>
+                    or 
+                    <a href="@{creatUser()}">Create an account </a>
+                    #{/else}
                 </li>
                
             </ul>
@@ -29,19 +36,12 @@
 		</div>
         </div>
         #{form @Application.listAdviceByTitle()}
-        #{ifErrors}
-        <p class="error">
-            All fields are required!
-        </p>
-    	#{/ifErrors}
 			<input name="title" type="text" placeholder="title" value ="${params.title}"/>
 			<input type="submit" value="Rechercher" />
+			
         #{/form}
-        
-        	<div>
-    		<a href="@{Application.getCat()}">Categories</a>
-		</div>
-        
+           <h3><a href="@{Application.getCat()}">Search by categories</a></h3>
+    	
         <div id="main">
             #{doLayout /} 
         </div>
