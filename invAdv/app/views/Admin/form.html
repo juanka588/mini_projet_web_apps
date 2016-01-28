@@ -1,5 +1,5 @@
 #{extends 'admin.html' /}
- 
+
 #{ifnot post?.id}
     <h3>Write, <span>a new advice</span></h3>
 #{/ifnot}
@@ -9,18 +9,18 @@
  
 #{form @save(post?.id)}
  
-    #{ifErrors}
+   	#{ifErrors}
+   			
         <p class="error">
             Please correct these errors.
         </p>
     #{/ifErrors}
-     
+    
     <p>
         #{field 'title'}
         <label>Advice title:</label>
         <input type="text" name="${field.name}" 
-            value="${post?.title}" />
-        <span class="error">#{error 'post.title' /}</span>
+            value="${post?.title}" />      
         #{/field}
     </p>
  
@@ -30,9 +30,57 @@
         <textarea name="${field.name}">
           ${post?.content}
         </textarea>
-        <span class="error">#{error 'post.title' /}</span>
+       
         #{/field}
     </p>
+    
+   
+     <p>
+        #{field 'type'}
+        <label>Type:</label>
+        <select id="mySelectT" id="mySelectC" name="${field.name}" selected="${post?.category}">
+        	#{list items:allTypes, as:'types'}
+        		<option> ${types.type} </option>
+       	 	#{/list}
+        </select>
+        
+       
+        #{/field}
+    </p>
+    
+    
+     <p>
+        #{field 'capitalGain'}
+        <label>capitalGain:</label>
+        <input type="text" name="${field.name}" value="${post?.capitalGain}"/>
+        
+       
+        #{/field}
+    </p>
+    
+     <p>
+        #{field 'confidenceIndex'}
+        <label>confidenceIndex:</label>
+        <input type="text" name="${field.name}" value="${post?.confidenceIndex}"/>
+        
+       
+        #{/field}
+    </p>
+    
+     <p>
+        #{field 'category'}
+        <label>Categorie:</label>
+
+ 		<select id="mySelectC" name="${field.name}" selected="${post?.category}">
+        	#{list items:allCategories, as:'categories'}
+        		<option > ${categories.categoryTitle} </option>
+       	 	#{/list}
+        </select>   
+     
+        #{/field}
+    </p> 
+ 	   
+    
     <p>
         <input type="submit" value="Publish this advice to the website" />
     </p>

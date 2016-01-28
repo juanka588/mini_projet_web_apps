@@ -99,4 +99,6 @@ public class Application extends Controller {
 		List<Category> allCategories =  Category.all().fetch();
 		render( allCategories);
 	}
+	
+	
 }

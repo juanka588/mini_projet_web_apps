@@ -1,5 +1,6 @@
 package controllers;
 import play.*;
+import play.data.validation.Required;
 import play.mvc.*;
  
 import java.util.*;
@@ -21,42 +22,42 @@ public class Admin extends Controller{
         List<InvestementAdvice> posts = InvestementAdvice.find("author.email", user).fetch();
         render(posts);
     }
-    
-    public static void form() {
-        render();
-    }
      
-    public static void save() {
-        // Not implemented yet
-    }
-    
-  
-    
-    public static void save(Long id, String title, String content, String tags) {
+    public static void save(Long id, @Required String title, @Required String content, @Required double capitalGain, @Required double confidenceIndex, String type, String category ) {
     	InvestementAdvice post;
+        
         if(id == null) {
             // Create post
             User author = User.find("byEmail", Security.connected()).first();
-            post = new InvestementAdvice(new Date(), title, content, author, null, 0, 0, null);
+            Type t = Type.find("byType", type).first();
+            Category c = Category.find("byCategoryTitle", category).first();
 
+            post = new InvestementAdvice(new Date(), title, content, author, t, capitalGain, confidenceIndex, c);
         } else {
             // Retrieve post
         	post = InvestementAdvice.findById(id);
+        	Type t = Type.find("byType", type).first();
+            Category c = Category.find("byCategoryTitle", category).first();
             // Edit
             post.title = title;
             post.content = content;
+            post.capitalGain = capitalGain;
+            post.confidenceIndex = confidenceIndex;
+            post.type = t;
+            post.category = c;
         }
-        // Set tags list
-        /*for(String tag : tags.split("\\s+")) {
-            if(tag.trim().length() > 0) {
-                post.tags.add(Tag.findOrCreateByName(tag));
-            }
-        }*/
+      
         // Validate
         validation.valid(post);
         if(validation.hasErrors()) {
-            render("@form", post);
+            //
+        	 List<Type> allTypes =  Type.all().fetch();
+     		//Récupérer la liste des  catégories
+     		List<Category> allCategories = Category.all().fetch();
+     		
+     		render("@form", post,allCategories, allTypes);
         }
+        
         // Save
         post.save();
         index();
@@ -68,8 +69,26 @@ public class Admin extends Controller{
             InvestementAdvice post = InvestementAdvice.findById(id);
             render(post);
         }
-        render();
-    }
 
+        // Récupérer la liste des types
+        List<Type> allTypes =  Type.all().fetch();
+		//Récupérer la liste des  catégories
+		List<Category> allCategories = Category.all().fetch();
+		
+		render(allCategories, allTypes);
+    }
+    
+    
+    public static void fill() {
+        // Récupérer la liste des types
+        List<Type> allTypes =  Type.all().fetch();
+		//Récupérer la liste des  catégories
+		List<Category> allCategories = Category.all().fetch();
+		
+		render(allCategories, allTypes);
+    }
+    
+   
+   
     
 }
