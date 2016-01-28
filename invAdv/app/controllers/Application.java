@@ -18,17 +18,9 @@ public class Application extends Controller {
 		if(Security.isConnected()) {
             User user = User.find("byEmail", Security.connected()).first();
             renderArgs.put("user", user.fullname);
+        }else {
+        	renderArgs.put("user", null);
         }
-		
-		List<Category> allCategories = Category.all().fetch();
-		List<Category> ParentCategories = new ArrayList<Category>();
-		for (int i = 0; i < allCategories.size(); i++) {
-			if (allCategories.get(i).parentCategory == null) {
-				ParentCategories.add(allCategories.get(i));
-			}
-		}
-		//System.out.println(ParentCategories.size());
-		renderArgs.put("ParentCategories",ParentCategories);
 	}
 
 	public static void show(Long id) {
