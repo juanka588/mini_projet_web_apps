@@ -1,25 +1,29 @@
 #{extends 'main.html' /}
-#{set title:'home' /}
 
 #{form @Application.createUser()}
-
-
+ 	
     <div id="create-account">
 
     	<h2> Create your account </h2>
     	<h3> Let's get started... </h3><br/>
-    
+    	
+ 	#{ifErrors}  			
+        <p class="error">
+            All fields are required.
+        </p>
+    #{/ifErrors}
+         
 		<p>
-			<label id="label-create"> Your full name: <em>*</em></label>
+			<label id="fullname"> Your full name: <em>*</em></label>
 		 	<input name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
 		</p>
-			
-		<p id="email-create">
+	
+		<p id="email">
 		    <label>Your mail: <em>*</em></label>
 			<input name="email" type="text" placeholder="email" value ="${params.email}"/>
 		</p>
 
-		<p id="password-create">
+		<p id="password">
 			<label>Your password: <em>*</em></label>
 			<input name="password" type="password" placeholder="password" value ="${params.password}"/>
 		</p><br/><br/>

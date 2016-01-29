@@ -28,18 +28,19 @@ public class InvestementAdvice extends Model {
 
 	@OneToOne
 	public Type type;
-
-	public HashMap<Long, Double> capitalGains;
-
-	public HashMap<Long, Double> confidenceIndexs;
-
+	
 	public double capitalGain;
 
 	public double confidenceIndex;
 
 	@OneToMany(mappedBy = "advice")
 	public List<Comment> comments;
+	
 
+	@OneToMany (mappedBy = "advice")
+	public List<Data> dataRate;
+
+	
 	@OneToOne
 	public Category category;
 
@@ -50,16 +51,16 @@ public class InvestementAdvice extends Model {
 		this.title = title;
 		this.content = content;
 		this.author = author;
-		this.capitalGains = new HashMap<Long, Double>();
-		this.capitalGains.put(author.id, capitalGain);
-		this.confidenceIndexs = new HashMap<Long, Double>();
-		this.confidenceIndexs.put(author.id, confidenceIndex);
+		Data d = new Data(capitalGain, confidenceIndex ,author.id, this ).save();
+		this.dataRate = new ArrayList<Data>();
+        this.dataRate.add(d);
 		this.comments = new ArrayList<>();
 		this.category = category;
 		this.type = type;
 		author.investementAdvices.add(this);
-		this.capitalGain = capitalGain;
-		this.confidenceIndex = confidenceIndex;
+		//author.save();
+		this.capitalGain = getcapital();
+		this.confidenceIndex = getconfidence();
 	}
 
 	public double getCapitalGain() {
@@ -78,30 +79,33 @@ public class InvestementAdvice extends Model {
 		this.confidenceIndex = confidenceIndex;
 	}
 
-	public boolean addRate(Long userId, double newCapitalGain,  double newConfidenceIndex) {
-		boolean b = (capitalGains.put(userId, newCapitalGain) == null);
-		this.capitalGain = getcapital();
-		boolean c = (confidenceIndexs.put(userId, newConfidenceIndex) == null);
-		this.confidenceIndex = getconfidence();
-		this.save();
-		return b&c;
-
+	public void addRate(Long userId, @Required double newCapitalGain, @Required double newConfidenceIndex) {
+		if (((0<newCapitalGain) && (newCapitalGain<10000) ) || ((0<newConfidenceIndex) && (newConfidenceIndex<10) )){
+			Data newdata = new Data(newCapitalGain, newConfidenceIndex ,userId, this ).save();
+			this.dataRate.add(newdata);
+			this.capitalGain = getcapital();
+			this.confidenceIndex = getconfidence();
+		}
+	
 	}
-
+		
+		
 	public double getcapital() {
 		double avg = 0;
-		for (Long key : capitalGains.keySet()) {
-			avg += capitalGains.get(key);
+		for (int i =0; i<dataRate.size(); i++) {
+			avg += dataRate.get(i).capitalGain;
+			System.out.println("capital gain  : "+ i + "==> "+ dataRate.get(i).capitalGain);
 		}
-		return avg / capitalGains.size();
+		return avg / dataRate.size();
+		
 	}
 
 	public double getconfidence() {
 		double avg = 0.0;
-		for (Long key : confidenceIndexs.keySet()) {
-			avg += confidenceIndexs.get(key);
+		for (int i =0; i<dataRate.size(); i++) {
+			avg += dataRate.get(i).index;
 		}
-		return avg / confidenceIndexs.size();
+		return avg / dataRate.size();
 	}
 
 	public void addComment(String fullname, String content) {
