@@ -79,13 +79,15 @@ public class Application extends Controller {
 			render("Application/show.html", post);
 		}
 	}
-	public static void listAdviceByTitle (  @Required String title){
-		InvestementAdvice frontPost = InvestementAdvice.find("byTitle",title).first();
-		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byTitle", title).from(1).fetch(10);
+	public static void listAdviceByTitle (@Required String title){
+		//InvestementAdvice frontPost = InvestementAdvice.find("byTitle",title).first();
+		InvestementAdvice frontPost = InvestementAdvice.find("byTitleLike", "%"+title+"%").first();
+		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byTitleLike", "%"+title+"%").from(1).fetch(10);
+		//List<InvestementAdvice> olderPosts = InvestementAdvice.find("byTitle", title).from(1).fetch(10);
 		render(frontPost, olderPosts);	
 	}
 	
-	public static void listAdviceByCategory (  @Required String category){
+	public static void listAdviceByCategory (@Required String category){
 		System.out.println(category);
 		Category cat = Category.find("byCategoryTitle", category).first();
 		InvestementAdvice frontPost = InvestementAdvice.find("byCategory",cat).first();
