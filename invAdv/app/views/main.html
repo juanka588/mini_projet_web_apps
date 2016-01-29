@@ -20,6 +20,7 @@
                 <li>
                     #{if user}
                     <a href="@{Secure.logout()}">Log out </a>
+                    <a> | </a> <a href="@{Admin.index()}">My Account </a>
                     #{/if}
                     #{else}
                     <a href="@{Secure.login()}">Log In to write an advice </a>
@@ -27,7 +28,6 @@
                     <a href="@{creatUser()}">Sign Up</a>
                     #{/else}
                 </li>
-               
             </ul>
    		<div id="title">
     		<span class="about">About this blog</span>
@@ -35,14 +35,9 @@
     		<h2>${blogBaseline}</h2>
 		</div>
         </div>       
-         
-               
-        
-    	
         <div id="main">
             #{doLayout /} 
-        </div>
-        
+        </div> 
         <p id="footer">
             Copyright © 2016 - 
         	LACHKAR Fadoua - MOUSSI Nermine - RODRIGUEZ DURAN Juan Camilo -  All Rights Reserved.       

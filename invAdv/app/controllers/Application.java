@@ -21,7 +21,17 @@ public class Application extends Controller {
         }else {
         	renderArgs.put("user", null);
         }
+		
+		List<Category> allCategories = Category.all().fetch();
+		List<Category> ParentCategories = new ArrayList<Category>();
+		for (int i = 0; i < allCategories.size(); i++) {
+			if (allCategories.get(i).parentCategory == null) {
+				ParentCategories.add(allCategories.get(i));
+			}
+		}
+		renderArgs.put("ParentCategories",ParentCategories );
 	}
+	
 
 	public static void show(Long id) {
 		InvestementAdvice post = InvestementAdvice.findById(id);
