@@ -79,10 +79,11 @@ public class InvestementAdvice extends Model {
 			this.capitalGains = new HashMap<Long, Double>();
 			this.capitalGains.put(author.id, capitalGain);
 		}
-		boolean b = (capitalGains.putIfAbsent(userId, newCapitalGain) == null);
+		//boolean b = (capitalGains.putIfAbsent(userId, newCapitalGain) == null);
 		this.capitalGain = getcapital();
 		this.save();
-		return b;
+		return true;
+		//return b;
 
 	}
 
@@ -91,10 +92,11 @@ public class InvestementAdvice extends Model {
 			this.confidenceIndexs = new HashMap<Long, Double>();
 			this.confidenceIndexs.put(author.id, confidenceIndex);
 		}
-		boolean b = (confidenceIndexs.putIfAbsent(userId, newConfidenceIndex) == null);
+		//boolean b = (confidenceIndexs.putIfAbsent(userId, newConfidenceIndex) == null);
 		this.confidenceIndex = getconfidence();
 		this.save();
-		return b;
+		return true;
+		//return b;
 	}
 
 	public double getcapital() {

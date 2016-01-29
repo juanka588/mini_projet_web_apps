@@ -1,7 +1,8 @@
 #{extends 'admin.html' /}
  
 <h3>Welcome ${user}, <span>you have written ${posts.size() ?: 'no'} ${posts.pluralize('post', 'posts')} so far</span></h3>
-<p id="newPost"><a  href="@{Application.index()}"> <span><<</span> Revenir a la page d'accueil'</a></p>
+
+  
 #{list items:posts, as:'post'}
     <p class="post ${post_parity}">
         <a href="@{Admin.form(post.id )}">${post.title}</a>

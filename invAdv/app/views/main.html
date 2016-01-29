@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html>
     <head>
-        <title>#{get 'title' /}</title>		
+        <title>Advice to help you</title>		
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" media="screen" 
             href="@{'/public/stylesheets/main.css'}" />
@@ -14,7 +14,7 @@
 
         <div id="header">
             <div id="logo">
-                yabe.
+                Advice to help you
             </div>
             <ul id="tools">
                 <li>
@@ -22,9 +22,9 @@
                     <a href="@{Secure.logout()}">Log out </a>
                     #{/if}
                     #{else}
-                    <a href="@{Secure.login()}">Log in to write an advice </a>
-                    or 
-                    <a href="@{creatUser()}">Create an account </a>
+                    <a href="@{Secure.login()}">Log In to write an advice </a>
+                    <a> | </a>  
+                    <a href="@{creatUser()}">Sign Up</a>
                     #{/else}
                 </li>
                
@@ -34,22 +34,23 @@
     		<h1><a href="@{Application.index()}">${blogTitle}</a></h1>
     		<h2>${blogBaseline}</h2>
 		</div>
-        </div>
-        #{form @Application.listAdviceByTitle()}
+        </div>       
+         #{form @Application.listAdviceByTitle()}
 			<input name="title" type="text" placeholder="title" value ="${params.title}"/>
-			<input type="submit" value="Rechercher" />
-			
+			<input type="submit" value="Rechercher" />	
         #{/form}
+        
            <h3 id="newPost"><a href="@{Application.getCat()}">Search by categories</a></h3>
+       
+        
     	
         <div id="main">
             #{doLayout /} 
         </div>
         
         <p id="footer">
-            Yabe is a (not that) powerful blog engine built with the 
-            <a href="https://www.playframework.com">Play framework</a>
-            as a tutorial application.
+            Copyright © 2016 - 
+        	LACHKAR Fadoua - MOUSSI Nermine - RODRIGUEZ DURAN Juan Camilo -  All Rights Reserved.       
         </p>
         
     </body>
