@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
  
+ <p id="newPost">
+  	<a href="@{Application.index()}"> << Home page </a>
+</p> 
+ 
 #{if frontPost}
     
     #{display post:frontPost, as:'home' /}

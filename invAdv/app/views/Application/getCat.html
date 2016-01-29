@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'home' /}
 
+ <p id="newPost">
+  	<a href="@{Application.index()}"> << Home page </a>
+</p> 
+
 #{if ParentCategories.size()}
    <ul class="cat">
             #{list items:ParentCategories, as:'allCat'}

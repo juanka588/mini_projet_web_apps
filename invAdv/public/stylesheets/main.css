@@ -1,7 +1,7 @@
 /** Main layout **/
 
 html, body {
-    background: #364B66 !important;
+    background: #A49485 !important;
     font-family: Helvetica, Arial, Sans !important;
 }
 
@@ -45,30 +45,31 @@ body {
 }
 
 #tools a {
-    color: #fff;
+    color: #000;
     text-decoration: none;
 }
 
 #title {
-    background: #B8C569;
+    background: #40362E;
     padding: 20px 30px 30px 20px;
     margin: 20px 0;
-    color: #3C4313;
+    color: #fff;
     position: relative;
     -webkit-border-radius: 16px;
-    -webkit-box-shadow: 0 2px 0 #93A045;
+    -webkit-box-shadow: 0 2px 0 #40362E;
     -moz-border-radius: 16px;
 }
 
 /** A little hacky to create arrows without images **/
 .about {
+	border-color: -moz-use-text-color transparent #40362E;
     text-indent: -999em;
     display: block;
     width: 0; 
     height: 0; 
 	border-left: 10px solid transparent; 
 	border-right: 10px solid transparent;
-	border-bottom: 10px solid #BAC36E;
+	border-bottom: 10px solid #40362E;
 	border-top: 0;
 	position: absolute;
 	top: -10px;
@@ -94,7 +95,7 @@ body {
 /** Main content **/
 
 #main {
-    background: #314660;
+    background: #B8A26D;
     background: -webkit-gradient(linear, left top, left 30%, from(#314660), to(#364B66));
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
@@ -109,12 +110,12 @@ body {
 
 .post .post-title a {
     font-size: 36px;
-    color: #F5C2CC;
+    color: #B23813;
     text-decoration: none;
 }
 
 .post .post-metadata {
-    color: #BAC36E;
+    color: #B25E33;
     display: block;
     font-size: 70%;
     display: inline-block;
@@ -126,12 +127,12 @@ body {
 }
 
 .post .post-metadata a {
-    color: #9FA85D;
+    color: #D95E33;
 }
 
 .post .post-content {
     position: relative;
-    background: #fff;
+    background: #FFFFFF;
     padding: 10px;
     margin: 10px 0 50px 0;
     -webkit-border-radius: 10px;
@@ -157,7 +158,7 @@ body {
 /** Older posts **/
 
 .older-posts h3 {
-    color: #869AB1;
+    color: #B55E33;
     font-size: 28px;
     margin-bottom: 15px;
 }
@@ -169,7 +170,7 @@ body {
 
 .older-posts .post {
     margin-bottom: 15px;
-    border-left: 3px solid #869AB1;
+    border-left: 3px solid #AA9A4D;
     padding-left: 10px;
 }
 
@@ -180,7 +181,7 @@ body {
 }
 
 .older-posts .post-metadata {
-    color: #869AB1;
+    color: #332B25;
     padding: 0;
     font-size: 12px;
 }
@@ -196,10 +197,20 @@ body {
 }
 
 h3 {
-    color: #869AB1;
+    color: #392B25;
     font-size: 18px;
     margin-bottom: 15px;
 }
+
+h4 {
+    color: #392B25;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+a{
+    color: #392B25;
+} 
 
 h3 span {
     font-size: 80%;
@@ -212,7 +223,7 @@ h3 span {
 }
 
 .comment .comment-metadata {
-    color: #869AB1;
+    color: #392B25;
     display: block;
     font-size: 50%;
     display: block;
@@ -229,8 +240,8 @@ h3 span {
 
 .comment .comment-content {
     position: relative;
-    background: #E4EAFF;
-    color: #242C58;
+    background: #D3C899;
+    color: #4F3F28;
     font-size: 80%;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -247,7 +258,7 @@ h3 span {
     height: 0; 
 	border-top: 10px solid transparent; 
 	border-bottom: 10px solid transparent;
-	border-right: 10px solid #E4EAFF;
+	border-right: 10px solid #D3C899;
 	border-left: 0;
 	position: absolute;
 	top: 4px;
@@ -258,10 +269,11 @@ h3 span {
 
 form {
     padding: 10px;
-    background: #253142;
+    background: #D3C899;
     background: -webkit-gradient(linear, left top, left 60%, from(#253142), to(#364B66));
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
+    margin-bottom: 25px;
 }
 
 form .error {
@@ -291,7 +303,7 @@ form label {
     display: block;
     font-weight: bold;
     font-size: 90%;
-    color: #aaa;
+    color: #634B34;
     margin-bottom: 3px;
 }
 
@@ -315,14 +327,14 @@ form label {
     list-style: none;
     padding: 0;
     position: relative;
-    color: #869AB1;
+    color: #634B34;
     font-size: 90%;
     top: -20px;
     margin-bottom: 30px;
 }
 
 #pagination a {
-    color: #869AB1;
+    color: #634B34;
     font-size: 90%;
 }
 
@@ -349,11 +361,11 @@ form label {
 /** Footer **/
 
 #footer {
-    border-top: 1px solid #45597A;
+    border-top: 1px solid #fff;
     font-size: 70%;
     padding: 10px 30px;
     text-align: center;
-    color: #869AB1;
+    color: #000;
     margin-top: 30px;
 }
 
@@ -383,26 +395,26 @@ form label {
     color: #fff;
     text-decoration: none;
     font-size: 80%;
-    background: #591C64;
+    background: #3B2F1E;
     padding: 2px 10px;
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
 }
 
 #adminMenu li.selected a {
-    background: #82A346;
+    background: #D3C899;
 }
 
 #crudContent {
-    color: #8B98AD;
+    color: #000;
 }
 
 #crudContent h2 {
-    color: #EDC3CD !important;
+    color: #453723 !important;
 }
 
 #crudContent thead tr {
-    background: #512162 !important;
+    background: #3B2F1E !important;
 }
 
 #crudContent table {
@@ -410,11 +422,11 @@ form label {
 }
 
 #crudContent table td {
-    color: #444;
+    color: #000;
 }
 
 tr.odd {
-    background: #BECCE7 !important;
+    background: #826341 !important;
 }
 
 #crud #crudContent, #crudContent form, #crudListSearch, #crudListPagination, .crudButtons {
@@ -433,7 +445,7 @@ tr.odd {
 }
 
 .crudField label {
-    color: #B8FA5C;
+    color: #000;
 }
 
 .crudHelp {
@@ -478,14 +490,14 @@ tr.odd {
 /** Login **/
 
 #login form {
-    background: #8B98AD !important;
+    background: #E3D7A5 !important;
     border: 0 !important;
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
 }
 
 #login label, #password-field label, #username-field label {
-    color: #161D28 !important;
+    color: #634b34 !important;
     font-size: 110% !important;
 }
 
@@ -504,15 +516,15 @@ tr.odd {
 }
 
 #admin .post.odd {
-    background: #C0CBE5;
+    background: #F0D88E;
 }
 
 #admin .post a {
-    color: #444;
+    color: #000;
 }
 
 #newPost {
-    border-top: 1px dotted #C0CBE5;
+    border-top: 1px dotted #fff;
     padding-top: 15px;
 }
 
@@ -544,4 +556,35 @@ tr.odd {
 
 .hasError {
     background: pink;
+}
+
+#create-account form {
+    border: 10px solid #ccc;
+    background: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+#create-account form p {
+    margin: 3px;
+    text-align: center;
+}
+
+#create-account label{
+    display: block;
+    width: 150px;
+    float: left;
+    text-align: right;
+    margin-right: 9px;
+    font-size: 15px; 
+}
+
+#bouton-submit{
+	text-align: center;
+}
+#create-account h2, #create-account h3 {
+ 	text-align: center;
+ 	color: #4C3D27;
+    font-size: 28px;
+    margin-bottom: 15px;
 }
