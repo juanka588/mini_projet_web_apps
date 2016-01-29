@@ -1,6 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
  
+ 
+ #{form @Application.listAdviceByTitle()}
+        	<h3> Search by titles >> </h3>
+			<input name="title" type="text" placeholder="title" value ="${params.title}"/>
+			<input type="submit" value="Rechercher" />		
+			<h4 id="newPost"><a href="@{Application.getCat()}">Search by categories >> </a></h4>	
+  #{/form}
+        
+        
 #{if frontPost}
     
     #{display post:frontPost, as:'home' /}

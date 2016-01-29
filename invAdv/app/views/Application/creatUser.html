@@ -1,12 +1,39 @@
 #{extends 'main.html' /}
 #{set title:'home' /}
 
-Veuillez remplir les champs pour vous connecter
 #{form @Application.createUser()}
+<<<<<<< HEAD
 <input name="email" type="text" placeholder="email" value ="${params.email}"/>
 <input name="password" type="text" placeholder="password" value ="${params.password}"/>
 <input name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
 			
 			<input type="submit" value="creer un compte" />
+=======
+
+    <div id="create-account">
+
+    	<h2> Create your account </h2>
+    	<h3> Let's get started... </h3><br/>
+    
+		<p>
+			<label id="label-create"> Your full name: <em>*</em></label>
+		 	<input name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
+		</p>
+>>>>>>> 40d9f916ebb5ddbd83bab0691d26197433128b1c
 			
+		<p id="email-create">
+		    <label>Your mail: <em>*</em></label>
+			<input name="email" type="text" placeholder="email" value ="${params.email}"/>
+		</p>
+
+		<p id="password-create">
+			<label>Your password: <em>*</em></label>
+			<input name="password" type="password" placeholder="password" value ="${params.password}"/>
+		</p><br/><br/>
+
+		<p id="bouton-submit">
+			<input type="submit" value="Create my account" />
+		</p>
+	</div>
+	
    #{/form}
