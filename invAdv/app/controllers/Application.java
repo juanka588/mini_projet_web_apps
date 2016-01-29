@@ -43,14 +43,15 @@ public class Application extends Controller {
 		render("Application/index.html");
 	}
 
-	public static void postComment(Long postId, @Required String author, @Required String content) {
+	public static void postComment(Long postId, @Required String content) {
 		InvestementAdvice post = InvestementAdvice.findById(postId);
 		if (Security.isConnected()) {
+			User user = User.find("byEmail", Security.connected()).first();
 			if (validation.hasErrors()) {
 				render("Application/show.html", post);
 			}
-			post.addComment(author, content);
-			flash.success("Thanks for posting %s", author);
+			post.addComment(user.fullname, content);
+			flash.success("Thanks for posting %s", user.fullname);
 			show(postId);
 		}
 		else {
@@ -59,19 +60,17 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void postCapitalGain(Long postId, @Required String author, @Required double capitalGain,
+	public static void postCapitalGain(Long postId, @Required double capitalGain,
 			@Required double confidenceIndex) {
 		InvestementAdvice post = InvestementAdvice.findById(postId);
 		if (Security.isConnected()) {
-			User A = User.find("byFullname", author).first();
+			User user = User.find("byEmail", Security.connected()).first();
 			if (validation.hasErrors()) {
 				render("Application/show.html", post);
 			}
-			boolean c = post.addCapitalGain(A.id, capitalGain);
-			boolean d = post.addConfidenceIndex(A.id, confidenceIndex);
-			if ((c) & (d)) {
-				flash.success("Thanks for posting %s", author);
-			}
+			post.addRate(user.id, capitalGain, confidenceIndex);
+			flash.success("Thanks for posting %s", user.fullname);
+			
 			show(postId);
 		}
 		else {

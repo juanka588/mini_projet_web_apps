@@ -50,6 +50,10 @@ public class InvestementAdvice extends Model {
 		this.title = title;
 		this.content = content;
 		this.author = author;
+		this.capitalGains = new HashMap<Long, Double>();
+		this.capitalGains.put(author.id, capitalGain);
+		this.confidenceIndexs = new HashMap<Long, Double>();
+		this.confidenceIndexs.put(author.id, confidenceIndex);
 		this.comments = new ArrayList<>();
 		this.category = category;
 		this.type = type;
@@ -74,28 +78,17 @@ public class InvestementAdvice extends Model {
 		this.confidenceIndex = confidenceIndex;
 	}
 
-	public boolean addCapitalGain(Long userId, double newCapitalGain) {
-		if (capitalGains == null) {
-			this.capitalGains = new HashMap<Long, Double>();
-			this.capitalGains.put(author.id, capitalGain);
-		}
-		boolean b = (capitalGains.putIfAbsent(userId, newCapitalGain) == null);
+	public boolean addRate(Long userId, double newCapitalGain,  double newConfidenceIndex) {
+		boolean b = (capitalGains.put(userId, newCapitalGain) == null);
 		this.capitalGain = getcapital();
-		this.save();
-		return b;
-
-	}
-
-	public boolean addConfidenceIndex(Long userId, double newConfidenceIndex) {
-		if (confidenceIndexs == null) {
-			this.confidenceIndexs = new HashMap<Long, Double>();
-			this.confidenceIndexs.put(author.id, confidenceIndex);
-		}
-		boolean b = (confidenceIndexs.putIfAbsent(userId, newConfidenceIndex) == null);
+		boolean c = (confidenceIndexs.put(userId, newConfidenceIndex) == null);
 		this.confidenceIndex = getconfidence();
 		this.save();
-		return b;
+		return b&c;
+
 	}
+
+	
 
 	public double getcapital() {
 		double avg = 0;
