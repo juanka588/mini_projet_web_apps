@@ -9,8 +9,7 @@
  
 #{form @save(post?.id)}
  
-   	#{ifErrors}
-   			
+   	#{ifErrors}  			
         <p class="error">
             Please correct these errors.
         </p>
@@ -19,18 +18,17 @@
     <p>
         #{field 'title'}
         <label>Advice title:</label>
-        <input type="text" name="${field.name}" 
-            value="${post?.title}" />      
+        <input type="text" name="${field.name}"  value="${post?.title}" /> 
+            
+        #{ifErrors}<span class="error"> #{error 'post.title' /}</span> #{/ifErrors}     
         #{/field}
     </p>
  
     <p>
         #{field 'content'}
         <label>Write here:</label>
-        <textarea name="${field.name}">
-          ${post?.content}
-        </textarea>
-       
+        <textarea name="${field.name}"> ${post?.content} </textarea>
+        #{ifErrors}  <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
         #{/field}
     </p>
     
@@ -43,7 +41,6 @@
         		<option> ${types.type} </option>
        	 	#{/list}
         </select>
-        
        
         #{/field}
     </p>
@@ -53,8 +50,7 @@
         #{field 'capitalGain'}
         <label>capitalGain:</label>
         <input type="text" name="${field.name}" value="${post?.capitalGain}"/>
-        
-       
+        #{ifErrors} <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
         #{/field}
     </p>
     
@@ -62,15 +58,13 @@
         #{field 'confidenceIndex'}
         <label>confidenceIndex:</label>
         <input type="text" name="${field.name}" value="${post?.confidenceIndex}"/>
-        
-       
+        #{ifErrors}  <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
         #{/field}
     </p>
     
      <p>
         #{field 'category'}
         <label>Categorie:</label>
-
  		<select id="mySelectC" name="${field.name}" selected="${post?.category}">
         	#{list items:allCategories, as:'categories'}
         		<option > ${categories.categoryTitle} </option>
@@ -80,7 +74,6 @@
         #{/field}
     </p> 
  	   
-    
     <p>
         <input type="submit" value="Publish this advice to the website" />
     </p>

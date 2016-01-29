@@ -80,36 +80,12 @@ public class InvestementAdvice extends Model {
 
 	public boolean addRate(Long userId, double newCapitalGain,  double newConfidenceIndex) {
 		boolean b = (capitalGains.put(userId, newCapitalGain) == null);
-	public boolean addCapitalGain(Long userId, double newCapitalGain) {
-		if (capitalGains == null) {
-			this.capitalGains = new HashMap<Long, Double>();
-			this.capitalGains.put(author.id, capitalGain);
-		}
-		//boolean b = (capitalGains.putIfAbsent(userId, newCapitalGain) == null);
 		this.capitalGain = getcapital();
 		boolean c = (confidenceIndexs.put(userId, newConfidenceIndex) == null);
 		this.confidenceIndex = getconfidence();
 		this.save();
 		return b&c;
 
-	}
-
-	
-		return true;
-		//return b;
-
-	}
-
-	public boolean addConfidenceIndex(Long userId, double newConfidenceIndex) {
-		if (confidenceIndexs == null) {
-			this.confidenceIndexs = new HashMap<Long, Double>();
-			this.confidenceIndexs.put(author.id, confidenceIndex);
-		}
-		//boolean b = (confidenceIndexs.putIfAbsent(userId, newConfidenceIndex) == null);
-		this.confidenceIndex = getconfidence();
-		this.save();
-		return true;
-		//return b;
 	}
 
 	public double getcapital() {

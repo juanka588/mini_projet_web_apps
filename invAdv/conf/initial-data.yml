@@ -66,24 +66,24 @@ Type(SHORT_TERM):
 
 InvestementAdvice(adv1):
     creationDate:    2016-01-26
-    title:           Investement1
+    title:           Investement 1
     content:         New Advice Content
     author:          bob
     type:            LONG_TERM
     capitalGain:     35
     confidenceIndex: 0.05
     category:        cat121
-    
+
 InvestementAdvice(adv2):
     creationDate:    2016-02-10
-    title:           Investement2
+    title:           Investement 2
     content:         New Advice Content2
     author:          jeff
     type:            LONG_TERM
     capitalGain:     35
     confidenceIndex: 0.05
     category:        cat12
-    
+
 InvestementAdvice(adv3):
     creationDate:    2016-03-10
     title:           Investement 3
