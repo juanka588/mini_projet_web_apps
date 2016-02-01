@@ -50,6 +50,7 @@ public class InvestementAdvice extends Model {
 		this.title = title;
 		this.content = content;
 		this.author = author;
+		this.save();
 		Data d = new Data(capitalGain, confidenceIndex, author.id, this).save();
 		this.dataRate = new ArrayList<Data>();
 		this.dataRate.add(d);
@@ -78,9 +79,10 @@ public class InvestementAdvice extends Model {
 		this.confidenceIndex = confidenceIndex;
 	}
 
-	public void addRate(Long userId, @Required double newCapitalGain, @Required double newConfidenceIndex) {
-		if (((0 < newCapitalGain) && (newCapitalGain < 10000))
-				|| ((0 < newConfidenceIndex) && (newConfidenceIndex < 10))) {
+	public boolean addRate(Long userId, @Required double newCapitalGain, @Required double newConfidenceIndex) {	
+		boolean cond=((0 < newCapitalGain) && (newCapitalGain < 10000))
+				|| ((0 < newConfidenceIndex) && (newConfidenceIndex < 10));
+		if (cond) {
 			if(dataRate.isEmpty()){
 				Data d = new Data(this.capitalGain, this.confidenceIndex, this.author.id, this).save();
 				dataRate.add(d);
@@ -97,6 +99,7 @@ public class InvestementAdvice extends Model {
 			this.confidenceIndex = getconfidence();
 			this.save();
 		}
+		return cond;
 	
 
 	}

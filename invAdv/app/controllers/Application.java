@@ -56,15 +56,23 @@ public class Application extends Controller {
 			User user = User.find("byEmail", Security.connected()).first();
 			if (validation.hasErrors()) {
 				render("Application/show.html", post);
+			} else {
+				post.addComment(user.fullname, content);
+				flash.success("Thanks for posting %s", user.fullname);
+				show(postId);
 			}
-			post.addComment(user.fullname, content);
-			flash.success("Thanks for posting %s", user.fullname);
-			show(postId);
 		} else {
-			// flash.error("Votre post n'a pas été ajouté car vous n'etes pas
-			// connécté %s", author);
-			render("Application/show.html", post);
+			render("Application/creatUser.html");
 		}
+	}
+
+	static boolean find_user(long user_id, InvestementAdvice post) {
+		for (int i = 0; i < post.dataRate.size(); i++) {
+			if (post.dataRate.get(i).idUser == user_id) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static void postCapitalGain(Long postId, @Required double capitalGain, @Required double confidenceIndex) {
@@ -73,13 +81,25 @@ public class Application extends Controller {
 			User user = User.find("byEmail", Security.connected()).first();
 			if (validation.hasErrors()) {
 				render("Application/index.html", post);
+			} else {
+				if (!find_user(user.id, post)) {
+					boolean cond = post.addRate(user.id, capitalGain, confidenceIndex);
+					if (cond) {
+						System.out.println("capitalgain : " + post.capitalGain);
+						flash.success("Thanks for posting %s", user.fullname );
+						render("Application/show.html", post);
+					}
+					else{
+						
+						render("Application/show.html", post);
+					}
+				} else {
+					flash.success("you have already posted %s", user.fullname );
+					render("Application/show.html", post);
+				}
 			}
-			post.addRate(user.id, capitalGain, confidenceIndex);
-			System.out.println("capitalgain : " + post.capitalGain);
-			flash.success("Thanks for posting %s", user.fullname);
-			render("Application/show.html", post);
 		} else {
-			render("Application/show.html", post);
+			render("Application/creatUser.html");
 		}
 	}
 
@@ -87,30 +107,29 @@ public class Application extends Controller {
 		if (validation.hasErrors()) {
 			render("Application/index.html");
 		} else {
-			InvestementAdvice frontPost = InvestementAdvice.find("byTitleLike", "%" + title + "%").first();
-			List<InvestementAdvice> olderPosts = InvestementAdvice.find("byTitleLike", "%" + title + "%").from(1)
+			List<InvestementAdvice> olderPosts = InvestementAdvice.find("select p from InvestementAdvice p where "
+					+ "title like ? OR content like ?", "%"+title+"%", "%"+title+"%").from(0)
 					.fetch(10);
-			render("Application/index.html", frontPost, olderPosts);
+			render(olderPosts);
 		}
 	}
 
 	public static void listAdviceByCategory(@Required String category) {
-		System.out.println(category);
 		Category cat = Category.find("byCategoryTitle", category).first();
-		InvestementAdvice frontPost = InvestementAdvice.find("byCategory", cat).first();
-		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byCategory", cat).from(1).fetch();
+		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byCategory", cat).from(0).fetch();
 		ArrayList<Category> list = new ArrayList<Category>();
 		list.add(cat);
-		for (int j=0;j<list.size();j++) {
-			Category c=list.get(j);
+		System.out.println(cat.categoryChilds.size());
+		for (int j = 0; j < list.size(); j++) {
+			Category c = list.get(j);
+			System.out.println(c);
 			for (int i = 0; i < c.categoryChilds.size(); i++) {
 				list.add(c.categoryChilds.get(i));
-				List<InvestementAdvice> Posts = InvestementAdvice.find("byCategory", c.categoryChilds.get(i))
-						.fetch();
+				List<InvestementAdvice> Posts = InvestementAdvice.find("byCategory", c.categoryChilds.get(i)).fetch();
 				olderPosts.addAll(Posts);
 			}
 		}
-		render(frontPost, olderPosts);
+		render(olderPosts);
 	}
 
 	public static void getCat() {

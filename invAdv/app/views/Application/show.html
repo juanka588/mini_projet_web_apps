@@ -34,11 +34,11 @@
     
     <p>
         <label for="capitalGain">capital Gain: </label>
-        <input type="text" name="capitalGain" id="capitalGain" value="${params.capitalGain}"/>
+        <input type="number" name="capitalGain" id="capitalGain" value="${params.capitalGain}" min="0" max="10000" step="0.0001" />
     </p>
      <p>
-        <label for="confidenceIndex">Confidence Index: </label>
-        <input type="text" name="confidenceIndex" id="confidenceIndex" value="${params.confidenceIndex}"/>
+        <label for="confidenceIndex">Confidence Index (%): </label>
+        <input type="number" name="confidenceIndex" id="confidenceIndex" value="${params.confidenceIndex}" min="0" max="20" step="0.0001"/>
     </p>
     <br>
     <p>

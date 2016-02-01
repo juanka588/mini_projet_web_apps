@@ -27,6 +27,7 @@ public class Category extends Model {
 			this.categoryChilds = new ArrayList<>();
 			if (parentCategory != null) {
 				parentCategory.categoryChilds.add(this);
+				parentCategory.save();
 			}
 		} else {
 			System.out.println("the category already exists");
