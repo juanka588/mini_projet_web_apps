@@ -6,12 +6,14 @@ import play.mvc.*;
 
 import java.util.*;
 
+import org.h2.mvstore.ConcurrentArrayList;
+
 import models.*;
 
 public class Application extends Controller {
 
 	@Before
-	static void addDefaults(){
+	static void addDefaults() {
 		renderArgs.put("blogTitle", Play.configuration.getProperty("blog.title"));
 		renderArgs.put("blogBaseline", Play.configuration.getProperty("blog.baseline"));
 		if (Security.isConnected()) {
@@ -73,7 +75,7 @@ public class Application extends Controller {
 				render("Application/index.html", post);
 			}
 			post.addRate(user.id, capitalGain, confidenceIndex);
-			System.out.println("capitalgain : "+post.capitalGain);
+			System.out.println("capitalgain : " + post.capitalGain);
 			flash.success("Thanks for posting %s", user.fullname);
 			render("Application/show.html", post);
 		} else {
@@ -81,13 +83,13 @@ public class Application extends Controller {
 		}
 	}
 
-	public static void listAdviceByTitle(@Required String title){
+	public static void listAdviceByTitle(@Required String title) {
 		if (validation.hasErrors()) {
 			render("Application/index.html");
-		}
-		else{
+		} else {
 			InvestementAdvice frontPost = InvestementAdvice.find("byTitleLike", "%" + title + "%").first();
-			List<InvestementAdvice> olderPosts = InvestementAdvice.find("byTitleLike", "%" + title + "%").from(1).fetch(10);
+			List<InvestementAdvice> olderPosts = InvestementAdvice.find("byTitleLike", "%" + title + "%").from(1)
+					.fetch(10);
 			render("Application/index.html", frontPost, olderPosts);
 		}
 	}
@@ -97,15 +99,15 @@ public class Application extends Controller {
 		Category cat = Category.find("byCategoryTitle", category).first();
 		InvestementAdvice frontPost = InvestementAdvice.find("byCategory", cat).first();
 		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byCategory", cat).from(1).fetch();
-		if (!(cat.categoryChilds == null)) {
-			if (!(cat.categoryChilds.isEmpty())) {
-				for (int i = 0; i < cat.categoryChilds.size(); i++) {
-					List<InvestementAdvice> Posts = InvestementAdvice.find("byCategory", cat.categoryChilds.get(i))
-							.fetch();
-					olderPosts.addAll(Posts);
-				}
-			} else {
-				System.out.println("c'est null");
+		ArrayList<Category> list = new ArrayList<Category>();
+		list.add(cat);
+		for (int j=0;j<list.size();j++) {
+			Category c=list.get(j);
+			for (int i = 0; i < c.categoryChilds.size(); i++) {
+				list.add(c.categoryChilds.get(i));
+				List<InvestementAdvice> Posts = InvestementAdvice.find("byCategory", c.categoryChilds.get(i))
+						.fetch();
+				olderPosts.addAll(Posts);
 			}
 		}
 		render(frontPost, olderPosts);

@@ -28,39 +28,38 @@ public class InvestementAdvice extends Model {
 
 	@OneToOne
 	public Type type;
-	
+
 	public double capitalGain;
 
 	public double confidenceIndex;
 
 	@OneToMany(mappedBy = "advice")
 	public List<Comment> comments;
-	
 
-	@OneToMany (mappedBy = "advice")
+	@OneToMany(mappedBy = "advice")
 	public List<Data> dataRate;
 
-	
 	@OneToOne
 	public Category category;
 
 	public InvestementAdvice(Date creationDate, String title, String content, User author, Type type,
 			double capitalGain, double confidenceIndex, Category category) {
+		
 		super();
 		this.creationDate = creationDate;
 		this.title = title;
 		this.content = content;
 		this.author = author;
-		Data d = new Data(capitalGain, confidenceIndex ,author.id, this ).save();
+		Data d = new Data(capitalGain, confidenceIndex, author.id, this).save();
 		this.dataRate = new ArrayList<Data>();
-        this.dataRate.add(d);
+		this.dataRate.add(d);
 		this.comments = new ArrayList<>();
 		this.category = category;
 		this.type = type;
 		author.investementAdvices.add(this);
-		//author.save();
 		this.capitalGain = getcapital();
 		this.confidenceIndex = getconfidence();
+		this.save();
 	}
 
 	public double getCapitalGain() {
@@ -80,29 +79,41 @@ public class InvestementAdvice extends Model {
 	}
 
 	public void addRate(Long userId, @Required double newCapitalGain, @Required double newConfidenceIndex) {
-		if (((0<newCapitalGain) && (newCapitalGain<10000) ) || ((0<newConfidenceIndex) && (newConfidenceIndex<10) )){
-			Data newdata = new Data(newCapitalGain, newConfidenceIndex ,userId, this ).save();
+		if (((0 < newCapitalGain) && (newCapitalGain < 10000))
+				|| ((0 < newConfidenceIndex) && (newConfidenceIndex < 10))) {
+			if(dataRate.isEmpty()){
+				Data d = new Data(this.capitalGain, this.confidenceIndex, this.author.id, this).save();
+				dataRate.add(d);
+			}
+			Data oldData=dataRate.get(dataRate.size()-1);
+			System.out.println("old "+oldData.toString());
+			Data newdata = new Data(newCapitalGain, newConfidenceIndex, userId, this).save();
+			System.out.println("new "+newdata.toString());
+			System.out.println("size before "+dataRate.size());
 			this.dataRate.add(newdata);
+			this.save();
+			System.out.println("size after "+this.dataRate.size());
 			this.capitalGain = getcapital();
 			this.confidenceIndex = getconfidence();
+			this.save();
 		}
 	
+
 	}
-		
-		
+
 	public double getcapital() {
 		double avg = 0;
-		for (int i =0; i<dataRate.size(); i++) {
+		for (int i = 0; i < dataRate.size(); i++) {
 			avg += dataRate.get(i).capitalGain;
-			System.out.println("capital gain  : "+ i + "==> "+ dataRate.get(i).capitalGain);
+//			System.out.println("capital gain  : " + i + "==> " + dataRate.get(i).capitalGain);
 		}
 		return avg / dataRate.size();
-		
+
 	}
 
 	public double getconfidence() {
 		double avg = 0.0;
-		for (int i =0; i<dataRate.size(); i++) {
+		for (int i = 0; i < dataRate.size(); i++) {
 			avg += dataRate.get(i).index;
 		}
 		return avg / dataRate.size();

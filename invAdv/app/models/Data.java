@@ -28,4 +28,8 @@ public class Data extends Model{
 		this.idUser = idUser;
 		this.advice= advice;
 	}
+	@Override
+	public String toString() {
+		return index+" "+capitalGain;
+	}
 }
