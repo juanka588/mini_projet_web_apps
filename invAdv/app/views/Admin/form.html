@@ -18,17 +18,15 @@
     <p>
         #{field 'title'}
         <label>Advice title:</label>
-        <input type="text" name="${field.name}"  value="${post?.title}" /> 
+        <input type="text" name="${field.name}"  value="${post?.title}" required="true" /> 
             
-        #{ifErrors}<span class="error"> #{error 'post.title' /}</span> #{/ifErrors}     
         #{/field}
     </p>
  
     <p>
         #{field 'content'}
         <label>Write here:</label>
-        <textarea name="${field.name}"> ${post?.content} </textarea>
-        #{ifErrors}  <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
+        <textarea name="${field.name}" required="true">${post?.content}</textarea>
         #{/field}
     </p>
     
@@ -50,7 +48,6 @@
         #{field 'capitalGain'}
         <label>capitalGain:</label>
         <input type="number" name="${field.name}" value="${post?.capitalGain}" required="true" min="0" max="10000" step="0.0001"/>
-        #{ifErrors} <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
         #{/field}
     </p>
     
@@ -58,7 +55,6 @@
         #{field 'confidenceIndex'}
         <label>confidenceIndex (%):</label>
         <input type="number" name="${field.name}" value="${post?.confidenceIndex}" required="true" min="0" max="20" step="0.0001"/>
-        #{ifErrors}  <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
         #{/field}
     </p>
     

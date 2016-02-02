@@ -5,14 +5,14 @@
     <div id="create-account">
 
     	<h2> Create your account </h2>
-    	<h3> Let's get started... </h3><br/>
+    	<h3> Let's get started... </h3><br/><br/>
     	
- 	#{ifErrors}  			
-        <p class="error">
-            All fields are required.
-        </p>
-    #{/ifErrors}
-         
+ 	#{ifErrors}
+    <p class="error">
+        ${errors[0]}
+    </p>
+	#{/ifErrors}
+	
 		<p>
 			<label id="fullname"> Your full name: <em>*</em></label>
 		 	<input name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
@@ -26,8 +26,17 @@
 		<p id="password">
 			<label>Your password: <em>*</em></label>
 			<input name="password" type="password" placeholder="password" value ="${params.password}" min=""/>
-		</p><br/><br/>
+		</p><br/>
 
+		<p>
+    		<label for="code">Please type the code below: <em>*</em></label>
+    		<img src="@{Application.captcha(randomID)}" />
+    		<br/>
+    		<label></label>
+    		<input type="text" name="code" id="code" value=""/>
+    		<input type="hidden" name="randomID" value="${randomID}" />
+		</p><br/><br/>
+		
 		<p id="bouton-submit">
 			<input type="submit" value="Create my account" />
 		</p>

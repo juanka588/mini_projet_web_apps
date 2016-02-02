@@ -34,4 +34,5 @@ GET     /admin/new                          Admin.form
 POST    /admin/myPosts/{id}                 Admin.save
 POST    /admin/new                          Admin.save
 
+GET     /captcha                                Application.captcha
 
