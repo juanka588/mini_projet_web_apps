@@ -19,12 +19,19 @@ public class Admin extends Controller {
 
 	public static void index() {
 		String user = Security.connected();
-		List<InvestementAdvice> posts = InvestementAdvice.find("author.email", user).fetch();
+		List<InvestementAdvice> posts = InvestementAdvice.find("author.email",
+				user).fetch();
 		render(posts);
 	}
 
-	public static void save(Long id, @Required String title, @Required String content, @Required double capitalGain,
-			@Required double confidenceIndex, @Required String type, @Required String category) {
+	/*
+	 * Ajoute l'advice de l'utilisateur si l'advice n'existe pas Sinon,
+	 * modification des paramètres de l'advice
+	 */
+	public static void save(Long id, @Required String title,
+			@Required String content, @Required double capitalGain,
+			@Required double confidenceIndex, @Required String type,
+			@Required String category) {
 		InvestementAdvice post;
 		if (validation.hasErrors()) {
 			List<Type> allTypes = Type.all().fetch();
@@ -33,11 +40,13 @@ public class Admin extends Controller {
 		} else {
 			if (id == null) {
 				// Create post
-				User author = User.find("byEmail", Security.connected()).first();
+				User author = User.find("byEmail", Security.connected())
+						.first();
 				Type t = Type.find("byType", type).first();
 				Category c = Category.find("byCategoryTitle", category).first();
 
-				post = new InvestementAdvice(new Date(), title, content, author, t, capitalGain, confidenceIndex, c);
+				post = new InvestementAdvice(new Date(), title, content,
+						author, t, capitalGain, confidenceIndex, c);
 			} else {
 				// Retrieve post
 				post = InvestementAdvice.findById(id);
@@ -60,6 +69,9 @@ public class Admin extends Controller {
 		}
 	}
 
+	/*
+	 * Envoie toute la liste des catégories et types
+	 */
 	public static void form(Long id) {
 		if (id != null) {
 			// Récupérer la liste des types
@@ -67,7 +79,7 @@ public class Admin extends Controller {
 			// Récupérer la liste des catégories
 			List<Category> allCategories = Category.all().fetch();
 			InvestementAdvice post = InvestementAdvice.findById(id);
-			render(post,allCategories, allTypes);
+			render(post, allCategories, allTypes);
 		}
 
 		// Récupérer la liste des types
@@ -78,6 +90,9 @@ public class Admin extends Controller {
 		render(allCategories, allTypes);
 	}
 
+	/*
+	 * Envoie toute la liste des catégories et types
+	 */
 	public static void fill() {
 		// Récupérer la liste des types
 		List<Type> allTypes = Type.all().fetch();

@@ -18,6 +18,13 @@ public class Category extends Model {
 	@Required
 	public String categoryTitle;
 
+	/*
+	 * Constructeur de la classe Category
+	 * 
+	 * @param parentCategory le catégorie parent
+	 * 
+	 * @param categoryTitle l'intitulé de la catégorie
+	 */
 	public Category(Category parentCategory, String categoryTitle) {
 		super();
 		Category selected = find("byCategoryTitle", categoryTitle).first();
@@ -38,5 +45,5 @@ public class Category extends Model {
 	public String toString() {
 		return categoryTitle;
 	}
-	
+
 }

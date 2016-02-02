@@ -25,11 +25,18 @@ public class User extends Model {
 	@OneToMany(mappedBy = "author")
 	public List<Comment> comments;
 
+	/*
+	 * Constructeur dans le cas d'un utilisateur non admin
+	 */
 	public User(String email, String password, String fullname) {
 		this(email, password, fullname, false);
 	}
 
-	public User(@Required String email, @Required String password, @Required String fullname, boolean isAdmin) {
+	/*
+	 * Constructeur paramétré de la classe User
+	 */
+	public User(@Required String email, @Required String password,
+			@Required String fullname, boolean isAdmin) {
 		if (find("byEmail", email).first() == null) {
 			this.email = email;
 			this.password = password;
@@ -42,6 +49,13 @@ public class User extends Model {
 		}
 	}
 
+	/*
+	 * Procedure qui sert à faire l'authentification d'un utilisateur
+	 * 
+	 * @param email l'email de l'utilisateur
+	 * 
+	 * @param password le password de l'utilisateur
+	 */
 	public static User connect(String email, String password) {
 		return find("byEmailAndPassword", email, password).first();
 	}

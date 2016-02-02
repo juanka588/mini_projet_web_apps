@@ -429,7 +429,7 @@ form label {
 }
 
 tr.odd {
-    background: #826341 !important;
+    background: #d3c899 !important;
 }
 
 #crud #crudContent, #crudContent form, #crudListSearch, #crudListPagination, .crudButtons {
@@ -519,7 +519,7 @@ tr.odd {
 }
 
 #admin .post.odd {
-    background: #F0D88E;
+    background: #d3c899;
 }
 
 #admin .post a {

@@ -12,6 +12,11 @@ public class Type extends Model {
 	@Unique
 	public String type;
 
+	/*
+	 * Constructeur
+	 * 
+	 * @param type l'intitulé du type
+	 */
 	public Type(String type) {
 		super();
 		this.type = type;

@@ -16,8 +16,10 @@ public class Application extends Controller {
 
 	@Before
 	static void addDefaults() {
-		renderArgs.put("blogTitle", Play.configuration.getProperty("blog.title"));
-		renderArgs.put("blogBaseline", Play.configuration.getProperty("blog.baseline"));
+		renderArgs.put("blogTitle",
+				Play.configuration.getProperty("blog.title"));
+		renderArgs.put("blogBaseline",
+				Play.configuration.getProperty("blog.baseline"));
 		if (Security.isConnected()) {
 			User user = User.find("byEmail", Security.connected()).first();
 			renderArgs.put("user", user.fullname);
@@ -41,8 +43,10 @@ public class Application extends Controller {
 	}
 
 	public static void index() {
-		InvestementAdvice frontPost = InvestementAdvice.find("order by creationDate desc").first();
-		List<InvestementAdvice> olderPosts = InvestementAdvice.find("order by creationDate desc").from(1).fetch(10);
+		InvestementAdvice frontPost = InvestementAdvice.find(
+				"order by creationDate desc").first();
+		List<InvestementAdvice> olderPosts = InvestementAdvice
+				.find("order by creationDate desc").from(1).fetch(10);
 		render(frontPost, olderPosts);
 	}
 
@@ -50,12 +54,18 @@ public class Application extends Controller {
 		render();
 	}
 
-	public static void createUser(@Required(message = "An email is required") String email,
+	/*
+	 * Ajout d'un utilisateur dans la base de données si ce dernier n'exite pas
+	 */
+	public static void createUser(
+			@Required(message = "An email is required") String email,
 			@Required(message = "A password is required") String password,
 			@Required(message = "A fullname is required") String fullname,
-			@Required(message = "Please type the code") String code, String randomID) {
+			@Required(message = "Please type the code") String code,
+			String randomID) {
 		if (!Play.id.equals("test")) {
-			validation.equals(code, Cache.get(randomID)).message("Invalid code. Please type it again");
+			validation.equals(code, Cache.get(randomID)).message(
+					"Invalid code. Please type it again");
 		}
 		int s = User.find("byEmail", email).fetch().size();
 		validation.equals(s, 0).message("User already exists");
@@ -65,13 +75,19 @@ public class Application extends Controller {
 		} else {
 			User user = new User(email, password, fullname, false);
 			user.save();
-			InvestementAdvice frontPost = InvestementAdvice.find("order by creationDate desc").first();
-			List<InvestementAdvice> olderPosts = InvestementAdvice.find("order by creationDate desc").from(1).fetch(10);
+			InvestementAdvice frontPost = InvestementAdvice.find(
+					"order by creationDate desc").first();
+			List<InvestementAdvice> olderPosts = InvestementAdvice
+					.find("order by creationDate desc").from(1).fetch(10);
 			Cache.delete(randomID);
 			render("Application/index.html", frontPost, olderPosts);
 		}
 	}
 
+	/*
+	 * Ajout d'un commentaire
+	 * Précondition: l'utilisateur est déja connecté
+	 */
 	public static void postComment(Long postId, @Required String content) {
 		InvestementAdvice post = InvestementAdvice.findById(postId);
 		if (Security.isConnected()) {
@@ -88,6 +104,9 @@ public class Application extends Controller {
 		}
 	}
 
+	/*
+	 * @return true si l'utilisateur avec l'Id user_id a déja participer à l'évalusation de l'advice post
+	 */
 	static boolean find_user(long user_id, InvestementAdvice post) {
 		for (int i = 0; i < post.dataRate.size(); i++) {
 			if (post.dataRate.get(i).idUser == user_id) {
@@ -97,21 +116,28 @@ public class Application extends Controller {
 		return false;
 	}
 
-
-	public static void postCapitalGain(Long postId,
+	/*
+	 * Ajoute l'évaluation de l'utilisateur pour la poste en question
+	 * Précondition: - L'utilisateur et déja connecté
+	 *               - L'utilisateur n'a pas évalué ce post
+	 */
+	public static void postCapitalGain(
+			Long postId,
 			@Required(message = "Value of capital gain is required") double capitalGain,
 			@Required(message = "Value of confidence index is required") double confidenceIndex) {
 		InvestementAdvice post = InvestementAdvice.findById(postId);
 		if (Security.isConnected()) {
 			User user = User.find("byEmail", Security.connected()).first();
 			boolean findUser = find_user(user.id, post);
-			validation.equals(findUser, false).message("you have already posted " + user.fullname);
+			validation.equals(findUser, false).message(
+					"you have already posted " + user.fullname);
 
 			if (validation.hasErrors()) {
 				render("Application/show.html", post);
 			} else {
 				if (!findUser) {
-					boolean cond = post.addRate(user.id, capitalGain, confidenceIndex);
+					boolean cond = post.addRate(user.id, capitalGain,
+							confidenceIndex);
 					if (cond) {
 						flash.success("Thanks for posting %s", user.fullname);
 						render("Application/show.html", post);
@@ -129,34 +155,46 @@ public class Application extends Controller {
 		}
 	}
 
+	/*
+	 * Recherche la liste des invistissement par titre et contenu
+	 */
 	public static void listAdviceByTitle(@Required String title) {
 		if (validation.hasErrors()) {
 			render("Application/index.html");
 		} else {
 			List<InvestementAdvice> olderPosts = InvestementAdvice
-					.find("select p from InvestementAdvice p where " + "title like ? OR content like ?",
-							"%" + title + "%", "%" + title + "%")
-					.from(0).fetch(10);
+					.find("select p from InvestementAdvice p where "
+							+ "title like ? OR content like ?",
+							"%" + title + "%", "%" + title + "%").from(0)
+					.fetch(10);
 			render(olderPosts);
 		}
 	}
 
+	/*
+	 * Recherche la liste des invistissement par catégorie
+	 */
 	public static void listAdviceByCategory(@Required String category) {
 		Category cat = Category.find("byCategoryTitle", category).first();
-		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byCategory", cat).from(0).fetch();
+		List<InvestementAdvice> olderPosts = InvestementAdvice
+				.find("byCategory", cat).from(0).fetch();
 		ArrayList<Category> list = new ArrayList<Category>();
 		list.add(cat);
 		for (int j = 0; j < list.size(); j++) {
 			Category c = list.get(j);
 			for (int i = 0; i < c.categoryChilds.size(); i++) {
 				list.add(c.categoryChilds.get(i));
-				List<InvestementAdvice> Posts = InvestementAdvice.find("byCategory", c.categoryChilds.get(i)).fetch();
+				List<InvestementAdvice> Posts = InvestementAdvice.find(
+						"byCategory", c.categoryChilds.get(i)).fetch();
 				olderPosts.addAll(Posts);
 			}
 		}
 		render(olderPosts);
 	}
 
+	/*
+	 * Envoie la liste des catégories racines
+	 */
 	public static void getCat() {
 		List<Category> allCategories = Category.all().fetch();
 		List<Category> ParentCategories = new ArrayList<Category>();

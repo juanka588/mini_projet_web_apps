@@ -42,9 +42,13 @@ public class InvestementAdvice extends Model {
 	@OneToOne
 	public Category category;
 
-	public InvestementAdvice(Date creationDate, String title, String content, User author, Type type,
-			double capitalGain, double confidenceIndex, Category category) {
-		
+	/*
+	 * Constructeur de la classe InvestementAdvice
+	 */
+	public InvestementAdvice(Date creationDate, String title, String content,
+			User author, Type type, double capitalGain, double confidenceIndex,
+			Category category) {
+
 		super();
 		this.creationDate = creationDate;
 		this.title = title;
@@ -63,32 +67,50 @@ public class InvestementAdvice extends Model {
 		this.save();
 	}
 
+	/*
+	 * Accesseur de capitalGain
+	 */
 	public double getCapitalGain() {
 		return capitalGain;
 	}
 
+	/*
+	 * Mutateur de capitalGain
+	 */
 	public void setCapitalGain(double capitalGain) {
 		this.capitalGain = capitalGain;
 	}
 
+	/*
+	 * Accesseur de confidenceIndex
+	 */
 	public double getConfidenceIndex() {
 		return confidenceIndex;
 	}
 
+	/*
+	 * Mutateur de confidenceIndex
+	 */
 	public void setConfidenceIndex(double confidenceIndex) {
 		this.confidenceIndex = confidenceIndex;
 	}
 
-
-	public boolean addRate(Long userId, @Required double newCapitalGain, @Required double newConfidenceIndex) {	
-		boolean cond=((0 < newCapitalGain) && (newCapitalGain < 10000))
+	/*
+	 * Ajoute les paramètres (newCapitalGain et newConfidenceIndex) à la liste
+	 * Date de l'advice
+	 */
+	public boolean addRate(Long userId, @Required double newCapitalGain,
+			@Required double newConfidenceIndex) {
+		boolean cond = ((-10000 < newCapitalGain) && (newCapitalGain < 10000))
 				|| ((0 < newConfidenceIndex) && (newConfidenceIndex < 20));
 		if (cond) {
-			if(dataRate.isEmpty()){
-				Data d = new Data(this.capitalGain, this.confidenceIndex, this.author.id, this).save();
+			if (dataRate.isEmpty()) {
+				Data d = new Data(this.capitalGain, this.confidenceIndex,
+						this.author.id, this).save();
 				dataRate.add(d);
 			}
-			Data newdata = new Data(newCapitalGain, newConfidenceIndex, userId, this).save();
+			Data newdata = new Data(newCapitalGain, newConfidenceIndex, userId,
+					this).save();
 			this.dataRate.add(newdata);
 			this.save();
 			this.capitalGain = getcapital();
@@ -98,6 +120,9 @@ public class InvestementAdvice extends Model {
 		return cond;
 	}
 
+	/*
+	 * @return la moyenne des capitalGain de l'advice
+	 */
 	public double getcapital() {
 		double avg = 0;
 		for (int i = 0; i < dataRate.size(); i++) {
@@ -107,6 +132,9 @@ public class InvestementAdvice extends Model {
 
 	}
 
+	/*
+	 * @return la moyenne des confidenceIndex de l'advice
+	 */
 	public double getconfidence() {
 		double avg = 0.0;
 		for (int i = 0; i < dataRate.size(); i++) {
@@ -115,6 +143,9 @@ public class InvestementAdvice extends Model {
 		return avg / dataRate.size();
 	}
 
+	/*
+	 * Ajoute le commentaire à la liste des commentaire de l'advice
+	 */
 	public void addComment(String fullname, String content) {
 		User author = User.find("byFullname", fullname).first();
 		Comment comment = new Comment(author, content, this, new Date()).save();
@@ -122,12 +153,22 @@ public class InvestementAdvice extends Model {
 		this.save();
 	}
 
+	/*
+	 * @return l'advice précedent (classement par dates)
+	 */
 	public InvestementAdvice previous() {
-		return InvestementAdvice.find("creationDate < ? order by creationDate desc", creationDate).first();
+		return InvestementAdvice.find(
+				"creationDate < ? order by creationDate desc", creationDate)
+				.first();
 	}
 
+	/*
+	 * @return l'advice suivant (classement par dates)
+	 */
 	public InvestementAdvice next() {
-		return InvestementAdvice.find("creationDate > ? order by creationDate asc", creationDate).first();
+		return InvestementAdvice.find(
+				"creationDate > ? order by creationDate asc", creationDate)
+				.first();
 	}
 
 	@Override

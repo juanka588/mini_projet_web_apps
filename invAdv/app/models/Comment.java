@@ -21,7 +21,19 @@ public class Comment extends Model {
 	@Required
 	public Date commentDate;
 
-	public Comment(User author, String comment, InvestementAdvice advice, Date commentDate) {
+	/*
+	 * Constructeur de la classe Comment
+	 * 
+	 * @param author l'auteur du commentaire
+	 * 
+	 * @param comment le contenu du commentaire
+	 * 
+	 * @param advice l'investissement relatif au commentaire
+	 * 
+	 * @param commentDate la date de publication du commentaire
+	 */
+	public Comment(User author, String comment, InvestementAdvice advice,
+			Date commentDate) {
 		super();
 		this.author = author;
 		this.comment = comment;
