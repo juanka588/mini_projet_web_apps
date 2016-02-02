@@ -1,77 +1,77 @@
 #{extends 'admin.html' /}
 
 #{ifnot post?.id}
-    <h3>Write, <span>a new advice</span></h3>
+<h3>Write, <span>a new advice</span></h3>
 #{/ifnot}
 #{else}
-    <h3>Edit, <span>this advice</span></h3>
+<h3>Edit, <span>this advice</span></h3>
 #{/else}
- 
+
 #{form @save(post?.id)}
- 
-   	#{ifErrors}  			
-        <p class="error">
-           All the fields are required.
-        </p>
-    #{/ifErrors}
-    
-    <p>
-        #{field 'title'}
-        <label>Advice title:</label>
-        <input id="AdvTitle" type="text" name="${field.name}"  value="${post?.title}" required="true" /> 
-        #{/field}
-    </p>
- 
- 
-    <p>
-        #{field 'content'}
-        <label>Write here:</label>
-        <textarea id="AdvContent" name="${field.name}" required="true">${post?.content}</textarea>
-        #{/field}
-    </p>
-    
-   
-     <p>
-        #{field 'type'}
-        <label>Type:</label>
-        <select id="mySelectT" name="${field.name}" selected="${post?.category}" required="true">
-        	#{list items:allTypes, as:'types'}
-        		<option> ${types.type} </option>
-       	 	#{/list}
-        </select>
-       
-        #{/field}
-    </p>
-    
-    
-     <p>
-        #{field 'capitalGain'}
-        <label>capitalGain:</label>
-        <input id="newCapitalGain" type="number" name="${field.name}" value="${post?.capitalGain}" required="true" min="0" max="10000" step="0.0001"/>
-        #{/field}
-    </p>
-    
-     <p>
-        #{field 'confidenceIndex'}
-        <label>confidenceIndex (%):</label>
-        <input id="newConfidenceIndex" type="number" name="${field.name}" value="${post?.confidenceIndex}" required="true" min="0" max="20" step="0.0001"/>
-        #{/field}
-    </p>
-    
-     <p>
-        #{field 'category'}
-        <label>Categorie:</label>
- 		<select id="mySelectC" name="${field.name}" selected="${post?.category}" required="true">
-        	#{list items:allCategories, as:'categories'}
-        		<option > ${categories.categoryTitle} </option>
-       	 	#{/list}
-        </select>   
-     
-        #{/field}
-    </p> 
- 	   
-    <p>
-        <input id="Publish this advice to the website" type="submit" value="Publish this advice to the website" />
-    </p>
-    
+
+#{ifErrors}  			
+<p class="error">
+  All the fields are required.
+</p>
+#{/ifErrors}
+
+<p>
+  #{field 'title'}
+  <label>Advice title:</label>
+  <input id="AdvTitle" type="text" name="${field.name}"  value="${post?.title}" required="true" /> 
+  #{/field}
+</p>
+
+
+<p>
+  #{field 'content'}
+  <label>Write here:</label>
+  <textarea id="AdvContent" name="${field.name}" required="true">${post?.content}</textarea>
+  #{/field}
+</p>
+
+
+<p>
+  #{field 'type'}
+  <label>Type:</label>
+  <select id="mySelectT" name="${field.name}" selected="${post?.category}" required="true">
+    #{list items:allTypes, as:'types'}
+    <option> ${types.type} </option>
+    #{/list}
+  </select>
+  
+  #{/field}
+</p>
+
+
+<p>
+  #{field 'capitalGain'}
+  <label>capitalGain:</label>
+  <input id="newCapitalGain" type="number" name="${field.name}" value="${post?.capitalGain}" required="true" min="0" max="10000" step="0.0001"/>
+  #{/field}
+</p>
+
+<p>
+  #{field 'confidenceIndex'}
+  <label>confidenceIndex (%):</label>
+  <input id="newConfidenceIndex" type="number" name="${field.name}" value="${post?.confidenceIndex}" required="true" min="0" max="20" step="0.0001"/>
+  #{/field}
+</p>
+
+<p>
+  #{field 'category'}
+  <label>Categorie:</label>
+  <select id="mySelectC" name="${field.name}" selected="${post?.category}" required="true">
+    #{list items:allCategories, as:'categories'}
+    <option > ${categories.categoryTitle} </option>
+    #{/list}
+  </select>   
+  
+  #{/field}
+</p> 
+
+<p>
+  <input id="Publish this advice to the website" type="submit" value="Publish this advice to the website" />
+</p>
+
 #{/form}

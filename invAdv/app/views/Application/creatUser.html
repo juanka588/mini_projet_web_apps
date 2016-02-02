@@ -2,46 +2,46 @@
 
 #{form @Application.createUser()}
 
-    <div id="create-account">
+<div id="create-account">
 
-    	<h2> Create your account </h2>
-    	<h3> Let's get started... </h3><br/><br/>
-    	
- 	#{ifErrors}
-    <p class="error">
-        ${errors[0]}
-    </p>
-	#{/ifErrors}
-	
-		<p>
-			<label id="fullname"> Your full name: <em>*</em></label>
-		 	<input id="createname" name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
-		</p>
+  <h2> Create your account </h2>
+  <h3> Let's get started... </h3><br/><br/>
+  
+  #{ifErrors}
+  <p class="error">
+    ${errors[0]}
+  </p>
+  #{/ifErrors}
+  
+  <p>
+    <label id="fullname"> Your full name: <em>*</em></label>
+    <input id="createname" name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
+  </p>
 
-		<p id="email">
-		    <label>Your mail: <em>*</em></label>
-			<input id="createEmail" name="email" type="email" placeholder="email" value ="${params.email}"/>
-		</p>
+  <p id="email">
+    <label>Your mail: <em>*</em></label>
+    <input id="createEmail" name="email" type="email" placeholder="email" value ="${params.email}"/>
+  </p>
 
-		<p id="password">
-			<label>Your password: <em>*</em></label>
-			<input id="pass" name="password" type="password" placeholder="password" value ="${params.password}" min=""/>
-		</p><br/>
+  <p id="password">
+    <label>Your password: <em>*</em></label>
+    <input id="pass" name="password" type="password" placeholder="password" value ="${params.password}" min=""/>
+  </p><br/>
 
-		<p>
-    		<label for="code">Please type the code below: <em>*</em></label>
-    		<img src="@{Application.captcha(randomID)}" />
-    		<br/>
-    		<label></label>
-    		<input type="text" name="code" id="code" value=""/>
-    		<input id="code" type="hidden" name="randomID" value="${randomID}" />
-		</p><br/><br/>
-		
-		<p id="bouton-submit">
-			<input id="Create my account" type="submit" value="Create my account" />
-		</p>
-		
-		
-	</div>
-	
-   #{/form}
+  <p>
+    <label for="code">Please type the code below: <em>*</em></label>
+    <img src="@{Application.captcha(randomID)}" />
+    <br/>
+    <label></label>
+    <input type="text" name="code" id="code" value=""/>
+    <input id="code" type="hidden" name="randomID" value="${randomID}" />
+  </p><br/><br/>
+  
+  <p id="bouton-submit">
+    <input id="Create my account" type="submit" value="Create my account" />
+  </p>
+  
+  
+</div>
+
+#{/form}

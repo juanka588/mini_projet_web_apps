@@ -1,17 +1,17 @@
 #{extends 'main.html' /}
 #{set title:'home' /}
 <div>
-	<h3>
-    	<a class="category-title" href="@{Application.listAdviceByCategory(_cat.categoryTitle)}">${_cat.categoryTitle}</a>
-    	 #{if _cat.categoryChilds.size()}
-    	 <ul>
-    	  
-    	 #{list items:_cat.categoryChilds, as:'allCat'}
-    	 <li>
-                #{displayCat cat:allCat /}
-                </li>
-         #{/list}
-         </ul>
-           #{/if}
-	</h3>
+  <h3>
+    <a class="category-title" href="@{Application.listAdviceByCategory(_cat.categoryTitle)}">${_cat.categoryTitle}</a>
+    #{if _cat.categoryChilds.size()}
+    <ul>
+      
+      #{list items:_cat.categoryChilds, as:'allCat'}
+      <li>
+        #{displayCat cat:allCat /}
+      </li>
+      #{/list}
+    </ul>
+    #{/if}
+  </h3>
 </div>

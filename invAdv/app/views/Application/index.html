@@ -1,44 +1,44 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
- 
- #{form @Application.listAdviceByTitle()}
-        	
-        	#{ifErrors}
-    		<p class="error">
-        		${errors[0]}
-    		</p>
-			#{/ifErrors}
-			
-    		<h4 style="text-align: left;">Search by title or content: <input id="idtitle" name="title" type="text" placeholder="title or content" size="22" required="true" value ="${params.title}"/>
-			<input id="Rechercher" type="submit" value="Search" /> 		
-			Or <a id="see-categories" href="@{Application.getCat()}"> Click HERE </a> to see categories			
-			</h4> 				
-		
+
+#{form @Application.listAdviceByTitle()}
+
+#{ifErrors}
+<p class="error">
+  ${errors[0]}
+</p>
+#{/ifErrors}
+
+<h4 style="text-align: left;">Search by title or content: <input id="idtitle" name="title" type="text" placeholder="title or content" size="22" required="true" value ="${params.title}"/>
+  <input id="Rechercher" type="submit" value="Search" /> 		
+  Or <a id="see-categories" href="@{Application.getCat()}"> Click HERE </a> to see categories			
+</h4> 				
+
 #{/form}      
 
- 
+
 #{if frontPost}
-    
-    #{display post:frontPost, as:'home' /}
-    
-    #{if olderPosts.size()}
-    
-        <div class="older-posts">
-            <h3>Older posts <span class="from">from this blog</span></h3>
-        
-            #{list items:olderPosts, as:'oldPost'}
-                #{display post:oldPost, as:'teaser' /}
-            #{/list}
-        </div>
-        
-    #{/if}
-    
+
+#{display post:frontPost, as:'home' /}
+
+#{if olderPosts.size()}
+
+<div class="older-posts">
+  <h3>Older posts <span class="from">from this blog</span></h3>
+  
+  #{list items:olderPosts, as:'oldPost'}
+  #{display post:oldPost, as:'teaser' /}
+  #{/list}
+</div>
+
 #{/if}
 
- 
+#{/if}
+
+
 #{else}
-    <div class="empty">
-        There is currently nothing to read here.
-    </div>
+<div class="empty">
+  There is currently nothing to read here.
+</div>
 #{/else}
 

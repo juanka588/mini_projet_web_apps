@@ -1,16 +1,16 @@
 #{extends 'main.html' /}
 #{set title:'home' /}
 
- <p id="newPost">
-  	<a href="@{Application.index()}"> << Home page </a>
-</p> 
+<p id="newPost">
+  <a href="@{Application.index()}"> << Home page </a>
+				       </p> 
 
 #{if ParentCategories.size()}
-   <ul class="cat">
-            #{list items:ParentCategories, as:'allCat'}
-            <li>
-                #{displayCat cat:allCat /}
-                </li>
-            #{/list}
-                </ul>
+<ul class="cat">
+  #{list items:ParentCategories, as:'allCat'}
+  <li>
+    #{displayCat cat:allCat /}
+  </li>
+  #{/list}
+</ul>
 #{/if}

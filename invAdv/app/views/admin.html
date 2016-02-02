@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Administration</title>		
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        #{get 'moreStyles' /}	
-        <link rel="stylesheet" type="text/css" media="screen" 
-                href="@{'/public/stylesheets/main.css'}" />
-        <link rel="shortcut icon" type="image/png" 
-                href="@{'/public/images/favicon.png'}" />
-        <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}"></script>
-        <script src="@{'/public/javascripts/jquery.tools-1.2.5.toolbox.expose.min.js'}"></script>
-    </head>
-    <body id="admin">
-        
-        <div id="header">
-            <div id="logo">
-                Advice to help you. <span>My Account</span>
-            </div>
-            <ul id="tools">
-                <li>
-                    <a href="@{Secure.logout()}">Log out</a>
-                </li>
-            </ul>
-        </div>
-        
-        <p id="newPost">
-  			<a href="@{Application.index()}">Home page</a>
-  		</p> 
-  		
-        <div id="main">
-        <ul id="adminMenu">
+  <head>
+    <title>Administration</title>		
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    #{get 'moreStyles' /}	
+    <link rel="stylesheet" type="text/css" media="screen" 
+          href="@{'/public/stylesheets/main.css'}" />
+    <link rel="shortcut icon" type="image/png" 
+          href="@{'/public/images/favicon.png'}" />
+    <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}"></script>
+    <script src="@{'/public/javascripts/jquery.tools-1.2.5.toolbox.expose.min.js'}"></script>
+  </head>
+  <body id="admin">
+    
+    <div id="header">
+      <div id="logo">
+        Advice to help you. <span>My Account</span>
+      </div>
+      <ul id="tools">
+        <li>
+          <a href="@{Secure.logout()}">Log out</a>
+        </li>
+      </ul>
+    </div>
+    
+    <p id="newPost">
+      <a href="@{Application.index()}">Home page</a>
+    </p> 
+    
+    <div id="main">
+      <ul id="adminMenu">
         <li class="${request.controller == 'Admin' ? 'selected' : ''}">
-            <a href="@{Admin.index()}">My Advices</a>
+          <a href="@{Admin.index()}">My Advices</a>
         </li>
         #{secure.check 'admin'}
-            <li class="${request.controller == 'InvestementAdvices' ? 'selected' : ''}">
-                <a href="@{InvestementAdvices.list()}">Advices</a>
-            </li>
-            <li class="${request.controller == 'Comments' ? 'selected' : ''}">
-                <a href="@{Comments.list()}">Comments</a>
-            </li>
-            <li class="${request.controller == 'Users' ? 'selected' : ''}">
-                <a href="@{Users.list()}">Users</a>
-            </li>
-            <li class="${request.controller == 'Types' ? 'selected' : ''}">
-                <a href="@{Types.list()}">Types</a>
-            </li>
-            <li class="${request.controller == 'Categories' ? 'selected' : ''}">
-                <a href="@{Categories.list()}">Categories</a>
-            </li>
+        <li class="${request.controller == 'InvestementAdvices' ? 'selected' : ''}">
+          <a href="@{InvestementAdvices.list()}">Advices</a>
+        </li>
+        <li class="${request.controller == 'Comments' ? 'selected' : ''}">
+          <a href="@{Comments.list()}">Comments</a>
+        </li>
+        <li class="${request.controller == 'Users' ? 'selected' : ''}">
+          <a href="@{Users.list()}">Users</a>
+        </li>
+        <li class="${request.controller == 'Types' ? 'selected' : ''}">
+          <a href="@{Types.list()}">Types</a>
+        </li>
+        <li class="${request.controller == 'Categories' ? 'selected' : ''}">
+          <a href="@{Categories.list()}">Categories</a>
+        </li>
         #{/secure.check}
-        </ul>
-            #{doLayout /} 
-        </div>
-        
-        <p id="footer">
-           Copyright © 2016 - 
-        	LACHKAR Fadoua - MOUSSI Nermine - RODRIGUEZ DURAN Juan Camilo -  All Rights Reserved.    
-        </p>
-        
-    </body>
+      </ul>
+      #{doLayout /} 
+    </div>
+    
+    <p id="footer">
+      Copyright © 2016 - 
+      LACHKAR Fadoua - MOUSSI Nermine - RODRIGUEZ DURAN Juan Camilo -  All Rights Reserved.    
+    </p>
+    
+  </body>
 </html>

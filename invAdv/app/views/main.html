@@ -1,49 +1,49 @@
 <!DOCTYPE html >
 <html>
-    <head>
-        <title>Advice to help you</title>		
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <link rel="stylesheet" type="text/css" media="screen" 
-            href="@{'/public/stylesheets/main.css'}" />
-        <link rel="shortcut icon" type="image/png" 
-            href="@{'/public/images/favicon.png'}" />
-            <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}"></script>
- 			<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
-    </head>
-    <body>
+  <head>
+    <title>Advice to help you</title>		
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" media="screen" 
+          href="@{'/public/stylesheets/main.css'}" />
+    <link rel="shortcut icon" type="image/png" 
+          href="@{'/public/images/favicon.png'}" />
+    <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}"></script>
+    <script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+  </head>
+  <body>
 
-		<img src="/public/images/investment.jpg" width="1100px" id="pic-couverture"/>
-		
-        <div id="header">
-            <div id="logo">
-                Advice to help you
-            </div>
-            <ul id="tools">
-                <li>
-                    #{if user}
-                    <a href="@{Secure.logout()}">Log out </a>
-                    <a> | </a> <a href="@{Admin.index()}">My Account </a>
-                    #{/if}
-                    #{else}
-                    <a href="@{Secure.login()}">Log In </a>
-                    <a> | </a>  
-                    <a href="@{creatUser()}">Sign Up</a>
-                    #{/else}
-                </li>
-            </ul>
-   		<div id="title">
-    		<span class="about">About this blog</span>
-    		<h1><a href="@{Application.index()}">${blogTitle}</a></h1>
-    		<h2>${blogBaseline}</h2>
-		</div>
-        </div>       
-        <div id="main">
-            #{doLayout /} 
-        </div> 
-        <p id="footer">
-            Copyright © 2016 - 
-        	LACHKAR Fadoua - MOUSSI Nermine - RODRIGUEZ DURAN Juan Camilo -  All Rights Reserved.       
-        </p>
-        
-    </body>
+    <img src="/public/images/investment.jpg" width="1100px" id="pic-couverture"/>
+    
+    <div id="header">
+      <div id="logo">
+        Advice to help you
+      </div>
+      <ul id="tools">
+        <li>
+          #{if user}
+          <a href="@{Secure.logout()}">Log out </a>
+          <a> | </a> <a href="@{Admin.index()}">My Account </a>
+          #{/if}
+          #{else}
+          <a href="@{Secure.login()}">Log In </a>
+          <a> | </a>  
+          <a href="@{creatUser()}">Sign Up</a>
+          #{/else}
+        </li>
+      </ul>
+      <div id="title">
+    	<span class="about">About this blog</span>
+    	<h1><a href="@{Application.index()}">${blogTitle}</a></h1>
+    	<h2>${blogBaseline}</h2>
+      </div>
+    </div>       
+    <div id="main">
+      #{doLayout /} 
+    </div> 
+    <p id="footer">
+      Copyright © 2016 - 
+      LACHKAR Fadoua - MOUSSI Nermine - RODRIGUEZ DURAN Juan Camilo -  All Rights Reserved.       
+    </p>
+    
+  </body>
 </html>
