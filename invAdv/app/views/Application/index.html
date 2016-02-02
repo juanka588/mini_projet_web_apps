@@ -3,19 +3,21 @@
  
  
  #{form @Application.listAdviceByTitle()}
-        	<h3> Search by titles >> </h3>
+        	<h3> Search by title or content >> </h3>
         	
-        	#{ifErrors}  			
-       		 	<p class="error">
-            		Title is required here.
-        		</p>
-    		#{/ifErrors}
+        	#{ifErrors}
+    		<p class="error">
+        		${errors[0]}
+    		</p>
+			#{/ifErrors}
+	
     		
-			<input name="title" type="text" placeholder="title" value ="${params.title}"/>
+			<input name="title" type="text" placeholder="title or content" required="true" value ="${params.title}"/>
 			<input type="submit" value="Rechercher" />		
 			<h4 id="newPost"><a href="@{Application.getCat()}">Search by categories >> </a></h4>		
-        
-#{/form}       
+#{/form}      
+
+ 
 #{if frontPost}
     
     #{display post:frontPost, as:'home' /}

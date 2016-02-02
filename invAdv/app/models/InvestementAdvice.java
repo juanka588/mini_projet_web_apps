@@ -81,7 +81,7 @@ public class InvestementAdvice extends Model {
 
 	public boolean addRate(Long userId, @Required double newCapitalGain, @Required double newConfidenceIndex) {	
 		boolean cond=((0 < newCapitalGain) && (newCapitalGain < 10000))
-				|| ((0 < newConfidenceIndex) && (newConfidenceIndex < 10));
+				|| ((0 < newConfidenceIndex) && (newConfidenceIndex < 20));
 		if (cond) {
 			if(dataRate.isEmpty()){
 				Data d = new Data(this.capitalGain, this.confidenceIndex, this.author.id, this).save();
