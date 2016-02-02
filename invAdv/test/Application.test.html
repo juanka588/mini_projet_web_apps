@@ -9,20 +9,20 @@
 #{/selenium}
 
 #{selenium 'Check home page'}
+	
 	clearSession()
     // Open the home page, and check that no error occured
     open('/')
-    
     // Check that the front post is present
     assertTextPresent('Advice to help you')
     assertTextPresent('Log In')
-    assertTextPresent('About this blog')
-    assertTextPresent('Investement')
+    assertTextPresent('Start Investing Today')
+    assertTextPresent('Simple, effective, easy and completely free')
     assertNotTitle('Application error')
     
     // Click on title
     clickAndWait('link=Start Investing Today')
-    assertTextPresent('Advice to help you')
+    assertTextPresent('Search by title or content')
     assertTextPresent('About this blog')
 	assertTextPresent('Log In')
 	
@@ -30,14 +30,17 @@
 #{/selenium}
 
 #{selenium 'Test search by title'}
-	open('/')
+
+	clearSession()
+    // Open the home page, and check that no error occured
+    open('/')
 	waitForPageToLoad(1000)
- 	Click on 'Search by title '
- 	type('idtitle', 'Investement')
+ 	//Click on 'Search by title '
+ 	type('idtitle', 'chaînes')
   	clickAndWait('Rechercher')
     assertTextPresent('Log In')
     assertTextPresent('About this blog')
-    assertTextPresent('Investement')
+    assertTextPresent('chaînes')
     clickAndWait('link=Start Investing Today')
     
 	   
@@ -45,14 +48,17 @@
 
 #{selenium 'Test search by categories'}
 
+	clearSession()
+    // Open the home page, and check that no error occured
+    open('/')
  	// Click on 'Search by categories '
-  	clickAndWait('link=Search by categories >>')
+  	clickAndWait('link=Click HERE')
+    assertTextPresent('Investement locatif')
+    assertTextPresent('Investissement en propriété')
+    assertTextPresent('Amortissable')
+    clickAndWait('link=Immobilier')
+    assertTextPresent('Investir en loi Pinel')
     assertTextPresent('Immobilier')
-    assertTextPresent('matière première')
-    assertTextPresent('nouvelles technologies')
-    clickAndWait('link=nouvelles technologies')
-    assertTextPresent('nouvelles technologies')
-    assertTextPresent('Investement 1')
     clickAndWait('link=Start Investing Today')
 	   
 #{/selenium}
@@ -60,6 +66,7 @@
 #{selenium 'Log in'}
 
 	clearSession()
+	open('/')
  	// Click on 'Log In'
   	clickAndWait('link=Log In')
   	type('username', 'bob@gmail.com')
@@ -119,8 +126,8 @@
  	// Redirection vers home page
  	clickAndWait('link=Home page')
  	// Click sur un advice
-  	clickAndWait('link=Investement 2 Peace')
-    assertTextPresent('Investement 2 Peace')
+  	clickAndWait('link=Le fonctionnement du livret A')
+    assertTextPresent('Le fonctionnement du livret A')
     assertTextPresent('Participer à l'évaluation')
     assertTextPresent('Post a comment')
     type('content', 'new comment')
@@ -144,9 +151,9 @@
 	assertTextPresent('Welcome')
  	// Redirection vers home page
  	clickAndWait('link=Home page')
- 	// Click on 'Investement 2 Peace'
-  	clickAndWait('link=Investement 2 Peace')
-    assertTextPresent('Investement 2 Peace')
+ 	// Click on 'Twin 2011'
+  	clickAndWait('link=Twin 2011')
+    assertTextPresent('Twin 2011')
     assertTextPresent('Participer à l'évaluation')
     assertTextPresent('Post a comment')
     //Add a new grade
@@ -199,8 +206,8 @@
  	// Redirection vers home page
  	clickAndWait('link=Home page')
  	// Click on 'Investement 2 Peace'
-  	clickAndWait('link=Investement 2 Peace')
-    assertTextPresent('Investement 2 Peace')
+  	clickAndWait('link=PEA Sélection 1818')
+    assertTextPresent('PEA Sélection 1818')
     assertTextPresent('Participer à l'évaluation')
     assertTextPresent('Post a comment')
     //Add a new grade
@@ -210,8 +217,8 @@
     // Retour à la page d'accueil
     clickAndWait('link=Start Investing Today')
     //Retour au post précédent
-    clickAndWait('link=Investement 2 Peace')
-    assertTextPresent('Investement 2 Peace')
+    clickAndWait('link=PEA Sélection 1818')
+    assertTextPresent('PEA Sélection 1818')
     assertTextPresent('Participer à l'évaluation')
     //Add a second new grade
     type('capitalGain', '200')
@@ -228,8 +235,8 @@
 	// Open the home page, and check that no error occured
     open('/')
  	// Click on 'Investement 2 Peace'
-  	clickAndWait('link=Investement 2 Peace')
-    assertTextPresent('Investement 2 Peace')
+  	clickAndWait('link=Investissez dans le bio')
+    assertTextPresent('Investissez dans le bio')
     assertTextPresent('Participer à l'évaluation')
     assertTextPresent('Post a comment')
     //Add a new comment
