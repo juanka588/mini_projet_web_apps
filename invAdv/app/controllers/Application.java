@@ -26,7 +26,6 @@ public class Application extends Controller {
 		}
 
 	}
-	
 
 	public static void captcha(String id) {
 		Images.Captcha captcha = Images.captcha();
@@ -55,8 +54,9 @@ public class Application extends Controller {
 			@Required(message = "A password is required") String password,
 			@Required(message = "A fullname is required") String fullname,
 			@Required(message = "Please type the code") String code, String randomID) {
-
-		validation.equals(code, Cache.get(randomID)).message("Invalid code. Please type it again");
+		if (!Play.id.equals("test")) {
+			validation.equals(code, Cache.get(randomID)).message("Invalid code. Please type it again");
+		}
 		int s = User.find("byEmail", email).fetch().size();
 		validation.equals(s, 0).message("User already exists");
 
@@ -97,10 +97,11 @@ public class Application extends Controller {
 		return false;
 	}
 
-	public static void postCapitalGain(Long postId, @Required(message = "Value of capital gain is required") double capitalGain, 
+	public static void postCapitalGain(Long postId,
+			@Required(message = "Value of capital gain is required") double capitalGain,
 			@Required(message = "Value of confidence index is required") double confidenceIndex) {
 		InvestementAdvice post = InvestementAdvice.findById(postId);
-		
+
 		if (Security.isConnected()) {
 			User user = User.find("byEmail", Security.connected()).first();
 			boolean findUser = find_user(user.id, post);
@@ -127,7 +128,6 @@ public class Application extends Controller {
 			render("Application/creatUser.html");
 		}
 	}
-
 
 	public static void listAdviceByTitle(@Required String title) {
 		if (validation.hasErrors()) {

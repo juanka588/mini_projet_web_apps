@@ -18,7 +18,7 @@
     <p>
         #{field 'title'}
         <label>Advice title:</label>
-        <input type="text" name="${field.name}"  value="${post?.title}" required="true" /> 
+        <input id="AdvTitle" type="text" name="${field.name}"  value="${post?.title}" required="true" /> 
             
         #{/field}
     </p>
@@ -26,7 +26,7 @@
     <p>
         #{field 'content'}
         <label>Write here:</label>
-        <textarea name="${field.name}" required="true">${post?.content}</textarea>
+        <textarea id="AdvContent" name="${field.name}" required="true">${post?.content}</textarea>
         #{/field}
     </p>
     
@@ -47,14 +47,14 @@
      <p>
         #{field 'capitalGain'}
         <label>capitalGain:</label>
-        <input type="number" name="${field.name}" value="${post?.capitalGain}" required="true" min="0" max="10000" step="0.0001"/>
+        <input id="newCapitalGain" type="number" name="${field.name}" value="${post?.capitalGain}" required="true" min="0" max="10000" step="0.0001"/>
         #{/field}
     </p>
     
      <p>
         #{field 'confidenceIndex'}
         <label>confidenceIndex (%):</label>
-        <input type="number" name="${field.name}" value="${post?.confidenceIndex}" required="true" min="0" max="20" step="0.0001"/>
+        <input id="newConfidenceIndex" type="number" name="${field.name}" value="${post?.confidenceIndex}" required="true" min="0" max="20" step="0.0001"/>
         #{/field}
     </p>
     
@@ -71,7 +71,7 @@
     </p> 
  	   
     <p>
-        <input type="submit" value="Publish this advice to the website" />
+        <input id="Publish this advice to the website" type="submit" value="Publish this advice to the website" />
     </p>
     
 #{/form}
