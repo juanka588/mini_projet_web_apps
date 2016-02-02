@@ -146,7 +146,6 @@ public class Application extends Controller {
 		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byCategory", cat).from(0).fetch();
 		ArrayList<Category> list = new ArrayList<Category>();
 		list.add(cat);
-		System.out.println(cat.categoryChilds.size());
 		for (int j = 0; j < list.size(); j++) {
 			Category c = list.get(j);
 			for (int i = 0; i < c.categoryChilds.size(); i++) {
