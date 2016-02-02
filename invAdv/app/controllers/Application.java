@@ -97,11 +97,11 @@ public class Application extends Controller {
 		return false;
 	}
 
+
 	public static void postCapitalGain(Long postId,
 			@Required(message = "Value of capital gain is required") double capitalGain,
 			@Required(message = "Value of confidence index is required") double confidenceIndex) {
 		InvestementAdvice post = InvestementAdvice.findById(postId);
-
 		if (Security.isConnected()) {
 			User user = User.find("byEmail", Security.connected()).first();
 			boolean findUser = find_user(user.id, post);
