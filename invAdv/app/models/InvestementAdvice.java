@@ -79,6 +79,7 @@ public class InvestementAdvice extends Model {
 		this.confidenceIndex = confidenceIndex;
 	}
 
+
 	public boolean addRate(Long userId, @Required double newCapitalGain, @Required double newConfidenceIndex) {	
 		boolean cond=((0 < newCapitalGain) && (newCapitalGain < 10000))
 				|| ((0 < newConfidenceIndex) && (newConfidenceIndex < 20));
@@ -87,28 +88,20 @@ public class InvestementAdvice extends Model {
 				Data d = new Data(this.capitalGain, this.confidenceIndex, this.author.id, this).save();
 				dataRate.add(d);
 			}
-			Data oldData=dataRate.get(dataRate.size()-1);
-			System.out.println("old "+oldData.toString());
 			Data newdata = new Data(newCapitalGain, newConfidenceIndex, userId, this).save();
-			System.out.println("new "+newdata.toString());
-			System.out.println("size before "+dataRate.size());
 			this.dataRate.add(newdata);
 			this.save();
-			System.out.println("size after "+this.dataRate.size());
 			this.capitalGain = getcapital();
 			this.confidenceIndex = getconfidence();
 			this.save();
 		}
 		return cond;
-	
-
 	}
 
 	public double getcapital() {
 		double avg = 0;
 		for (int i = 0; i < dataRate.size(); i++) {
 			avg += dataRate.get(i).capitalGain;
-//			System.out.println("capital gain  : " + i + "==> " + dataRate.get(i).capitalGain);
 		}
 		return avg / dataRate.size();
 
@@ -127,7 +120,6 @@ public class InvestementAdvice extends Model {
 		Comment comment = new Comment(author, content, this, new Date()).save();
 		comments.add(comment);
 		this.save();
-		System.out.println("comment added succesfully " + comment.toString());
 	}
 
 	public InvestementAdvice previous() {

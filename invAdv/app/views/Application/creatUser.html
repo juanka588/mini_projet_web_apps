@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 
 #{form @Application.createUser()}
- 	
+
     <div id="create-account">
 
     	<h2> Create your account </h2>
@@ -15,17 +15,17 @@
 	
 		<p>
 			<label id="fullname"> Your full name: <em>*</em></label>
-		 	<input name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
+		 	<input id="createname" name="fullname" type="text" placeholder="fullname" value ="${params.fullname}"/>
 		</p>
-	
+
 		<p id="email">
 		    <label>Your mail: <em>*</em></label>
-			<input name="email" type="email" placeholder="email" value ="${params.email}"/>
+			<input id="createEmail" name="email" type="email" placeholder="email" value ="${params.email}"/>
 		</p>
 
 		<p id="password">
 			<label>Your password: <em>*</em></label>
-			<input name="password" type="password" placeholder="password" value ="${params.password}" min=""/>
+			<input id="pass" name="password" type="password" placeholder="password" value ="${params.password}" min=""/>
 		</p><br/>
 
 		<p>
@@ -34,11 +34,11 @@
     		<br/>
     		<label></label>
     		<input type="text" name="code" id="code" value=""/>
-    		<input type="hidden" name="randomID" value="${randomID}" />
+    		<input id="code" type="hidden" name="randomID" value="${randomID}" />
 		</p><br/><br/>
 		
 		<p id="bouton-submit">
-			<input type="submit" value="Create my account" />
+			<input id="Create my account" type="submit" value="Create my account" />
 		</p>
 		
 		

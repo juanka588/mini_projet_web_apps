@@ -1,7 +1,321 @@
-*{ You can use plain selenium command using the selenium tag }*
+#{fixture delete:'all', load:'initial-data.yml' /}
 
-#{selenium}
+#{selenium }
+	clearSession()
     // Open the home page, and check that no error occured
     open('/')
+     waitForPageToLoad(1000)
     assertNotTitle('Application error')
+#{/selenium}
+
+#{selenium 'Check home page'}
+	clearSession()
+    // Open the home page, and check that no error occured
+    open('/')
+    
+    // Check that the front post is present
+    assertTextPresent('Advice to help you')
+    assertTextPresent('Log In')
+    assertTextPresent('About this blog')
+    assertTextPresent('Investement')
+    assertNotTitle('Application error')
+    
+    // Click on title
+    clickAndWait('link=Start Investing Today')
+    assertTextPresent('Advice to help you')
+    assertTextPresent('About this blog')
+	assertTextPresent('Log In')
+	
+	
+#{/selenium}
+
+#{selenium 'Test search by title'}
+	open('/')
+	waitForPageToLoad(1000)
+ 	Click on 'Search by title '
+ 	type('idtitle', 'Investement')
+  	clickAndWait('Rechercher')
+    assertTextPresent('Log In')
+    assertTextPresent('About this blog')
+    assertTextPresent('Investement')
+    clickAndWait('link=Start Investing Today')
+    
+	   
+#{/selenium}
+
+#{selenium 'Test search by categories'}
+
+ 	// Click on 'Search by categories '
+  	clickAndWait('link=Search by categories >>')
+    assertTextPresent('Immobilier')
+    assertTextPresent('matière première')
+    assertTextPresent('nouvelles technologies')
+    clickAndWait('link=nouvelles technologies')
+    assertTextPresent('nouvelles technologies')
+    assertTextPresent('Investement 1')
+    clickAndWait('link=Start Investing Today')
+	   
+#{/selenium}
+
+#{selenium 'Log in'}
+
+	clearSession()
+ 	// Click on 'Log In'
+  	clickAndWait('link=Log In')
+  	type('username', 'bob@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Advices')
+    assertTextPresent('Comments')
+    clickAndWait('link=Log out')
+   
+#{/selenium}
+
+#{selenium 'AdminTest'}
+
+ 	clearSession()
+ 	// Click on 'Log In'
+  	clickAndWait('link=Log In')
+  	type('username', 'bob@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Welcome')
+    assertTextPresent('Advices')
+    assertTextPresent('Comments')
+    assertTextPresent('Users')
+    assertTextPresent('Types')
+    clickAndWait('link=Log out')
+   
+#{/selenium}
+
+#{selenium 'Simple User Test'}
+
+ 	clearSession()
+ 	// Click on 'Log In'
+  	clickAndWait('link=Log In')
+  	type('username', 'jeff@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Advices')
+	assertTextPresent('Welcome')
+    clickAndWait('link=Log out')
+   
+#{/selenium}
+
+#{selenium 'post a comment'}
+    
+    clearSession()
+    // Log In
+ 	clickAndWait('link=Log In')
+  	type('username', 'jeff@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Advices')
+	assertTextPresent('Welcome')
+ 	// Redirection vers home page
+ 	clickAndWait('link=Home page')
+ 	// Click sur un advice
+  	clickAndWait('link=Investement 2 Peace')
+    assertTextPresent('Investement 2 Peace')
+    assertTextPresent('Participer à l'évaluation')
+    assertTextPresent('Post a comment')
+    type('content', 'new comment')
+    clickAndWait('Submit your comment')
+    assertTextPresent('new comment')
+    clickAndWait('link=Start Investing Today')
+    clickAndWait('link=Log out')
+	   
+#{/selenium}
+
+#{selenium 'post a grade'}
+
+	clearSession()
+    // Log In
+ 	clickAndWait('link=Log In')
+  	type('username', 'jeff@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Advices')
+	assertTextPresent('Welcome')
+ 	// Redirection vers home page
+ 	clickAndWait('link=Home page')
+ 	// Click on 'Investement 2 Peace'
+  	clickAndWait('link=Investement 2 Peace')
+    assertTextPresent('Investement 2 Peace')
+    assertTextPresent('Participer à l'évaluation')
+    assertTextPresent('Post a comment')
+    //Add a new grade
+    type('capitalGain', '100')
+    type('confidenceIndex', '0.1')
+    clickAndWait('Submit your capital Gain')
+    clickAndWait('link=Log out')
+	   
+#{/selenium}
+
+#{selenium 'Create an advice'}
+
+	clearSession()
+	// Log In
+ 	clickAndWait('link=Log In')
+  	type('username', 'jeff@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Advices')
+	assertTextPresent('Welcome')
+ 	// Click on 'write a new advice '
+  	clickAndWait('link=<span>+</span> write a new advice')
+  	//Creation de Advice'
+  	type('AdvTitle', 'Advice Title')
+  	type('AdvContent', 'Advice Content')
+  	type('newCapitalGain', '500')
+  	type('newConfidenceIndex', '0.01')
+  	clickAndWait('Publish this advice to the website')
+    //Acces a Advice
+    assertTextPresent('Advice Title')
+    clickAndWait('link=Advice Title')
+    assertTextPresent('Advice Content')
+  	assertTextPresent('My Advices')
+    clickAndWait('link=Log out')
+    
+#{/selenium}
+
+#{selenium 'post a grade while already posted'}
+	
+	clearSession()
+    // Log In
+ 	clickAndWait('link=Log In')
+  	type('username', 'jeff@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Advices')
+	assertTextPresent('Welcome')
+ 	// Redirection vers home page
+ 	clickAndWait('link=Home page')
+ 	// Click on 'Investement 2 Peace'
+  	clickAndWait('link=Investement 2 Peace')
+    assertTextPresent('Investement 2 Peace')
+    assertTextPresent('Participer à l'évaluation')
+    assertTextPresent('Post a comment')
+    //Add a new grade
+    type('capitalGain', '100')
+    type('confidenceIndex', '0.1')
+    clickAndWait('Submit your capital Gain')
+    // Retour à la page d'accueil
+    clickAndWait('link=Start Investing Today')
+    //Retour au post précédent
+    clickAndWait('link=Investement 2 Peace')
+    assertTextPresent('Investement 2 Peace')
+    assertTextPresent('Participer à l'évaluation')
+    //Add a second new grade
+    type('capitalGain', '200')
+    type('confidenceIndex', '0.5')
+    clickAndWait('Submit your capital Gain')
+    assertTextPresent('you have already posted')
+    clickAndWait('link=Log out')
+	   
+#{/selenium}
+
+#{selenium 'post a comment while not connected'}
+
+	clearSession()
+	// Open the home page, and check that no error occured
+    open('/')
+ 	// Click on 'Investement 2 Peace'
+  	clickAndWait('link=Investement 2 Peace')
+    assertTextPresent('Investement 2 Peace')
+    assertTextPresent('Participer à l'évaluation')
+    assertTextPresent('Post a comment')
+    //Add a new comment
+    type('content', 'new comment')
+    clickAndWait('Submit your comment')
+    //Redirection automatique vers creation de compte
+    assertTextPresent('Create your account')
+    assertTextPresent('Your mail:')
+    assertTextPresent('Your password:')
+    
+	   
+#{/selenium}
+
+#{selenium 'Create a new account'}
+
+	clearSession()
+    // Open the home page, and check that no error occured
+    open('/')
+ 	// Click on 'Sign Up '
+  	clickAndWait('link=Sign Up')
+  	// Get the value of the magicKey variable from the cache
+	storeCacheEntry(‘magicKey’, ‘captchaAnswer’)
+    assertTextPresent('Create your account')
+    assertTextPresent('Your mail:')
+    assertTextPresent('Your password:')
+    type('createname', 'new Name')
+    type('createEmail', 'Name@gmail.com')
+    type('pass', 'secret')
+    type('code', '$[captchaAnswer]')
+    clickAndWait('Create my account')
+    //Redirection vers la page d'accueil
+    assertTextPresent('Log In')
+    assertTextPresent('Sign Up')
+    assertTextPresent('Start Investing Today')
+     // Log In
+ 	clickAndWait('link=Log In')
+  	type('username', 'Name@gmail.com')
+  	type('password', 'secret')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log out')
+    assertTextPresent('Advices')
+	assertTextPresent('Welcome')
+	   
+#{/selenium}
+
+#{selenium 'Create an already used account'}
+
+ 	clearSession()
+    // Open the home page, and check that no error occured
+    open('/')
+ 	// Click on 'Sign Up '
+  	clickAndWait('link=Sign Up')
+    assertTextPresent('Create your account')
+    assertTextPresent('Your mail:')
+    assertTextPresent('Your password:')
+    type('createname', 'Bob')
+    type('createEmail', 'bob@gmail.com')
+    type('pass', 'secret')
+    type('code', 'code')
+    clickAndWait('Create my account')
+    //message d'erreur'
+    assertTextPresent('Create your account ')
+    assertTextPresent('User already exists ')
+    assertTextPresent('Start Investing Today')
+    clickAndWait('link=Start Investing Today')	 
+      
+#{/selenium}
+
+#{selenium 'Create a user without filling all the fields'}
+
+ 	clearSession()
+    // Open the home page, and check that no error occured
+    open('/')
+ 	// Click on 'Sign Up '
+  	clickAndWait('link=Sign Up')
+    assertTextPresent('Create your account')
+    assertTextPresent('Your mail:')
+    assertTextPresent('Your password:')
+    type('createname', 'Bob')
+    type('createEmail', 'bob@gmail.com')
+    type('pass', 'secret')
+    clickAndWait('Create my account')
+    //message d'erreur'
+    assertTextPresent('Create your account ')
+    assertTextPresent('Please type the code ')
+    assertTextPresent('Start Investing Today')
+    clickAndWait('link=Start Investing Today')	 
+      
 #{/selenium}

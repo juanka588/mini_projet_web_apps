@@ -24,6 +24,7 @@ public class Application extends Controller {
 		} else {
 			renderArgs.put("user", null);
 		}
+
 	}
 
 	public static void captcha(String id) {
@@ -53,8 +54,9 @@ public class Application extends Controller {
 			@Required(message = "A password is required") String password,
 			@Required(message = "A fullname is required") String fullname,
 			@Required(message = "Please type the code") String code, String randomID) {
-
-		validation.equals(code, Cache.get(randomID)).message("Invalid code. Please type it again");
+		if (!Play.id.equals("test")) {
+			validation.equals(code, Cache.get(randomID)).message("Invalid code. Please type it again");
+		}
 		int s = User.find("byEmail", email).fetch().size();
 		validation.equals(s, 0).message("User already exists");
 
@@ -95,10 +97,11 @@ public class Application extends Controller {
 		return false;
 	}
 
-	public static void postCapitalGain(Long postId, @Required(message = "Value of capital gain is required") double capitalGain, 
+
+	public static void postCapitalGain(Long postId,
+			@Required(message = "Value of capital gain is required") double capitalGain,
 			@Required(message = "Value of confidence index is required") double confidenceIndex) {
 		InvestementAdvice post = InvestementAdvice.findById(postId);
-		
 		if (Security.isConnected()) {
 			User user = User.find("byEmail", Security.connected()).first();
 			boolean findUser = find_user(user.id, post);
@@ -143,7 +146,6 @@ public class Application extends Controller {
 		List<InvestementAdvice> olderPosts = InvestementAdvice.find("byCategory", cat).from(0).fetch();
 		ArrayList<Category> list = new ArrayList<Category>();
 		list.add(cat);
-		System.out.println(cat.categoryChilds.size());
 		for (int j = 0; j < list.size(); j++) {
 			Category c = list.get(j);
 			for (int i = 0; i < c.categoryChilds.size(); i++) {

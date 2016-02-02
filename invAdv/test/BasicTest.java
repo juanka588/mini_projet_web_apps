@@ -18,41 +18,42 @@ public class BasicTest extends UnitTest {
 
 	@Test
 	public void createACategory() {
+		// creation du noeud père
 		Category cat1 = new Category(null, "finances de marché").save();
-		Category cat11 = new Category(cat1, "salle de marché").save();
-		Category cat12 = new Category(cat1, "mutual funds").save();
-
-		Category result = Category.find("byCategoryTitle", "mutual funds").first();
-		assertEquals(cat1, result.parentCategory);
-		Category result2 = Category.find("byCategoryTitle", "finances de marché").first();
+		Category result = Category.find("byCategoryTitle", "finances de marché").first();
+		assertNotNull(result);
+		// création du fils
+		Category cat11 = new Category(result, "salle de marché").save();
+		Category result2 = Category.find("byCategoryTitle", "salle de marché").first();
 		assertNotNull(result2);
-		assertEquals(2, result2.categoryChilds.size());
 
-		Category cat221 = Category.find("byCategoryTitle", "nouvelles technologies").first();
+		assertEquals(cat11, result.categoryChilds.get(0));
 
+		// creation du user et advice
 		new User("jk4@gmail.com", "secret", "juan2").save();
 		User user = User.find("byEmail", "jk4@gmail.com").first();
 		double capitalGain = 500, confidenceIndex = 0.02;
 		Date currentDate = new Date();
-		Type type=new Type("LONG TERM").save();
+		Type type = new Type("LONG TERM").save();
 		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
-				confidenceIndex, cat221).save();
+				confidenceIndex, cat11).save();
 		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user).first();
 
 		assertNotNull(advice.category);
-		assertEquals(advice.category.parentCategory.categoryTitle, "matière première");
-
+		assertEquals(advice.category.parentCategory.categoryTitle, "finances de marché");
 	}
 
 	@Test
 	public void createAnAdvice() {
+		
 		new User("jk2@gmail.com", "secret", "juan2").save();
 		User user = User.find("byEmail", "jk2@gmail.com").first();
 		double capitalGain = 500, confidenceIndex = 0.02;
 		Date currentDate = new Date();
-		Type type=new Type("LONG TERM").save();
+		Type type = new Type("LONG TERM").save();
+		Category cat12 = new Category(null, "mutual funds").save();
 		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
-				confidenceIndex, null).save();
+				confidenceIndex, cat12).save();
 		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user).first();
 
 		assertNotNull(advice);
@@ -66,48 +67,17 @@ public class BasicTest extends UnitTest {
 	}
 
 	@Test
-	public void addGradeAdvice() {
-		new User("jk2@gmail.com", "secret", "juan2").save();
-		User user = User.find("byEmail", "jk2@gmail.com").first();
-		double capitalGain = 500, confidenceIndex = 0.02;
-		Date currentDate = new Date();
-		Type type=new Type("MOYEN TERM").save();
-		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
-				confidenceIndex, null).save();
-		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user).first();
-		User user2 = new User("jk3@gmail.com", "secret", "juan3").save();
-		Long id = user2.id;
-//		advice.addCapitalGain(id, 300);
-//		advice.addConfidenceIndex(id, 0.05);
-//		assertEquals(2, advice.capitalGains.size());
-//		assertEquals(2, advice.confidenceIndexs.size());
-//
-//		assertEquals(400, advice.getcapital(), 0.001);
-//		assertEquals(0.035, advice.getconfidence(), 0.001);
-//
-//		advice.addCapitalGain(id, 300);
-//		advice.addConfidenceIndex(id, 0.05);
-//
-//		assertEquals(2, advice.capitalGains.size());
-//		assertEquals(2, advice.confidenceIndexs.size());
-//
-//		InvestementAdvice advice2 = InvestementAdvice.find("byAuthor", user).first();
-//		assertEquals(2, advice2.capitalGains.size());
-//		assertEquals(2, advice2.confidenceIndexs.size());
-
-	}
-
-	@Test
 	public void createAComment() {
+		
 		new User("jk3@gmail.com", "secret", "juan2").save();
 		User user = User.find("byEmail", "jk3@gmail.com").first();
 
 		double capitalGain = 500, confidenceIndex = 0.02;
-
+		Category cat12 = new Category(null, "mutual funds").save();
 		Date currentDate = new Date();
-		Type type=new Type("MOYEN TERM").save();
+		Type type = new Type("MOYEN TERM").save();
 		new InvestementAdvice(currentDate, "test investement", "Empty content", user, type, capitalGain,
-				confidenceIndex, null).save();
+				confidenceIndex, cat12).save();
 
 		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user).first();
 
@@ -122,6 +92,45 @@ public class BasicTest extends UnitTest {
 		assertNotNull(comments);
 		assertEquals(2, comments.size());
 		assertEquals(2, advice.comments.size());
+
+	}
+
+	@Test
+	public void addGradeAdvice() {
+
+		// Création du user et de l'advice
+		User user = new User("jk2@gmail.com", "secret", "juan2").save();
+		User user2 = new User("jk3@gmail.com", "secret", "juan3").save();
+		User user3 = new User("jk3@gmail.com", "secret", "juan3").save();
+		Category cat12 = new Category(null, "mutual funds").save();
+		double capitalGain = 500, confidenceIndex = 0.02;
+		Date currentDate = new Date();
+		Type type = new Type("MOYEN TERM").save();
+		User user1 = User.find("byEmail", "jk2@gmail.com").first();
+		new InvestementAdvice(currentDate, "test investement", "Empty content", user1, type, capitalGain,
+				confidenceIndex, cat12).save();
+
+		// récupération des données de la base de donnée
+		InvestementAdvice advice = InvestementAdvice.find("byAuthor", user1).first();
+
+		long id1 = user1.id;
+		long id2 = user2.id;
+		long id3 = user3.id;
+
+		// ajout de la data
+		advice.addRate(id2, 300, 0.02);
+		assertEquals(2, advice.dataRate.size());
+
+		assertEquals(400, advice.getcapital(), 0.001);
+		assertEquals(0.02, advice.getconfidence(), 0.001);
+
+		// ajout d'un capital gain qui dépasse 100000 et
+		// d'un confidence index qui depasse 10
+		advice.addRate(id3, 30000000, 30);
+		assertEquals(2, advice.dataRate.size());
+		assertEquals(400, advice.getcapital(), 0.001);
+		assertEquals(0.02, advice.getconfidence(), 0.001);
+
 
 	}
 
