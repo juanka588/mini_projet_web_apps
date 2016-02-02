@@ -2,7 +2,6 @@
 #{set title:post.title /}
 
 
-
  <ul id="pagination">
     #{if post.previous()}
         <li id="previous">
@@ -23,33 +22,32 @@
     <p class="success">${flash.success}</p>
 #{/if}
 #{display post:post, as:'full' /}
+  
 
 <h3>Participer à l'évaluation</h3>
-
 #{form @Application.postCapitalGain(post.id)}
- 
     #{ifErrors}
         <p class="error">
             All fields are required!
         </p>
     #{/ifErrors}
- 
-
+    
     <p>
         <label for="capitalGain">capital Gain: </label>
-        <input type="text" name="capitalGain" id="capitalGain" value="${params.capitalGain}"/>
+        <input type="number" name="capitalGain" id="capitalGain" value="${params.capitalGain}" min="0" max="10000" step="0.0001" />
     </p>
      <p>
-        <label for="confidenceIndex">Confidence Index: </label>
-        <input type="text" name="confidenceIndex" id="confidenceIndex" value="${params.confidenceIndex}"/>
+        <label for="confidenceIndex">Confidence Index (%): </label>
+        <input type="number" name="confidenceIndex" id="confidenceIndex" value="${params.confidenceIndex}" min="0" max="20" step="0.0001"/>
     </p>
     <br>
     <p>
         <input type="submit" value="Submit your capital Gain" />
     </p>
 #{/form}
+
 <h3>Post a comment</h3>
- 
+
 #{form @Application.postComment(post.id)}
  
     #{ifErrors}
@@ -58,8 +56,7 @@
         </p>
     #{/ifErrors}
  
-
-    <p>
+       <p>
         <label for="content">Your message: </label>
         <textarea name="content" id="content">${params.content}</textarea>
     </p>

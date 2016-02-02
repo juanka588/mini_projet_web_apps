@@ -4,12 +4,18 @@
  
  #{form @Application.listAdviceByTitle()}
         	<h3> Search by titles >> </h3>
+        	
+        	#{ifErrors}  			
+       		 	<p class="error">
+            		Title is required here.
+        		</p>
+    		#{/ifErrors}
+    		
 			<input name="title" type="text" placeholder="title" value ="${params.title}"/>
 			<input type="submit" value="Rechercher" />		
 			<h4 id="newPost"><a href="@{Application.getCat()}">Search by categories >> </a></h4>		
-  #{/form}
         
-        
+#{/form}       
 #{if frontPost}
     
     #{display post:frontPost, as:'home' /}
@@ -27,9 +33,11 @@
     #{/if}
     
 #{/if}
+
  
 #{else}
     <div class="empty">
         There is currently nothing to read here.
     </div>
 #{/else}
+

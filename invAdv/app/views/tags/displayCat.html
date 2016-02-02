@@ -2,7 +2,7 @@
 #{set title:'home' /}
 <div>
 	<h3>
-    	<a href="@{Application.listAdviceByCategory(_cat.categoryTitle)}">${_cat.categoryTitle}</a>
+    	<a class="category-title" href="@{Application.listAdviceByCategory(_cat.categoryTitle)}">${_cat.categoryTitle}</a>
     	 #{if _cat.categoryChilds.size()}
     	 <ul>
     	  

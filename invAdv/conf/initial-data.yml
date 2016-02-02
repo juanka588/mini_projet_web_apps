@@ -104,12 +104,21 @@ InvestementAdvice(adv4):
     confidenceIndex: 0.13
     category:        cat1
     
-InvestementAdvice(adv2):
+InvestementAdvice(adv5):
     creationDate:    2016-05-08
-    title:           Investement for Peace
+    title:           Investement 2 Peace
     content:         Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love 
     author:          rin
     type:            LONG_TERM
     capitalGain:     2
     confidenceIndex: 0.002
     category:        cat12
+InvestementAdvice(adv6):
+    creationDate:    2016-05-08
+    title:           Investement for Power
+    content:         Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love 
+    author:          rin
+    type:            LONG_TERM
+    capitalGain:     2
+    confidenceIndex: 0.002
+    category:        cat21

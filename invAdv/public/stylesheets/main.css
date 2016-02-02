@@ -1,5 +1,8 @@
 /** Main layout **/
 
+
+
+
 html, body {
     background: #A49485 !important;
     font-family: Helvetica, Arial, Sans !important;
@@ -134,7 +137,7 @@ body {
     position: relative;
     background: #FFFFFF;
     padding: 10px;
-    margin: 10px 0 50px 0;
+    margin: 10px 0 20px 0;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-box-shadow: 0 2px 0 #BBBBBB;
@@ -587,4 +590,32 @@ tr.odd {
  	color: #4C3D27;
     font-size: 28px;
     margin-bottom: 15px;
+}
+.category-title{
+	text-decoration: none;
+	color: #4C3D27;
+}
+
+@media (max-width: 800px) {
+	
+	body {
+    	width: 500px;
+    	padding: 0 30px;
+	}
+	#header {
+    	padding: 5px 0;
+    	position: relative;
+	}
+	.post-metadata {
+		display: none;
+	}
+	#title h1{
+		font-size: 40px; 
+	}
+	#title h2{
+		font-size: 20px; 
+	}
+	#logo {
+		   font-size: 30px; 
+	}
 }

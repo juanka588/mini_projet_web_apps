@@ -29,7 +29,7 @@ public class User extends Model {
 		this(email, password, fullname, false);
 	}
 
-	public User(String email, String password, String fullname, boolean isAdmin) {
+	public User(@Required String email, @Required String password, @Required String fullname, boolean isAdmin) {
 		if (find("byEmail", email).first() == null) {
 			this.email = email;
 			this.password = password;
@@ -38,7 +38,7 @@ public class User extends Model {
 			this.comments = new ArrayList<>();
 			this.investementAdvices = new ArrayList<>();
 		} else {
-			System.out.println("the user already exists");
+			System.out.println("the user already exists"+ fullname + "fsdfs");
 		}
 	}
 

@@ -11,7 +11,7 @@
  
    	#{ifErrors}  			
         <p class="error">
-            Please correct these errors.
+           All the fields are required.
         </p>
     #{/ifErrors}
     
@@ -36,7 +36,7 @@
      <p>
         #{field 'type'}
         <label>Type:</label>
-        <select id="mySelectT" id="mySelectC" name="${field.name}" selected="${post?.category}">
+        <select id="mySelectT" name="${field.name}" selected="${post?.category}" required="true">
         	#{list items:allTypes, as:'types'}
         		<option> ${types.type} </option>
        	 	#{/list}
@@ -49,15 +49,15 @@
      <p>
         #{field 'capitalGain'}
         <label>capitalGain:</label>
-        <input type="text" name="${field.name}" value="${post?.capitalGain}"/>
+        <input type="number" name="${field.name}" value="${post?.capitalGain}" required="true" min="0" max="10000" step="0.0001"/>
         #{ifErrors} <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
         #{/field}
     </p>
     
      <p>
         #{field 'confidenceIndex'}
-        <label>confidenceIndex:</label>
-        <input type="text" name="${field.name}" value="${post?.confidenceIndex}"/>
+        <label>confidenceIndex (%):</label>
+        <input type="number" name="${field.name}" value="${post?.confidenceIndex}" required="true" min="0" max="20" step="0.0001"/>
         #{ifErrors}  <span class="error"> #{error 'post.title' /}</span> #{/ifErrors} 
         #{/field}
     </p>
@@ -65,7 +65,7 @@
      <p>
         #{field 'category'}
         <label>Categorie:</label>
- 		<select id="mySelectC" name="${field.name}" selected="${post?.category}">
+ 		<select id="mySelectC" name="${field.name}" selected="${post?.category}" required="true">
         	#{list items:allCategories, as:'categories'}
         		<option > ${categories.categoryTitle} </option>
        	 	#{/list}
