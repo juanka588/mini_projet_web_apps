@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-    width: 900px;
+    width: 1100px;
     padding: 0 30px;
     margin: auto;
 }
@@ -597,7 +597,6 @@ tr.odd {
 }
 
 @media (max-width: 800px) {
-	
 	body {
     	width: 500px;
     	padding: 0 30px;
@@ -618,4 +617,14 @@ tr.odd {
 	#logo {
 		   font-size: 30px; 
 	}
+	#pic-couverture{
+		width: 500px;
+	}
 }
+
+#see-categories{
+	color: #b23813;
+}
+
+
+

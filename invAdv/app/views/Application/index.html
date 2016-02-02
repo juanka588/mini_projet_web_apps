@@ -1,20 +1,18 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
  
- 
  #{form @Application.listAdviceByTitle()}
-        	<h3> Search by title or content >> </h3>
         	
         	#{ifErrors}
     		<p class="error">
         		${errors[0]}
     		</p>
 			#{/ifErrors}
-	
-    		
-			<input name="title" type="text" placeholder="title or content" required="true" value ="${params.title}"/>
-			<input type="submit" value="Rechercher" />		
-			<h4 id="newPost"><a href="@{Application.getCat()}">Search by categories >> </a></h4>		
+			
+    		<h4 style="text-align: left;">Search by title or content: <input name="title" type="text" placeholder="title or content" size="22" required="true" value ="${params.title}"/>
+			<input id="searchbar-submit" type="submit" value="Search" /> 		
+			Or <a id="see-categories" href="@{Application.getCat()}"> Click HERE </a> to see categories			
+			</h4> 				
 #{/form}      
 
  

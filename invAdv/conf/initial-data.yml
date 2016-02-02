@@ -1,11 +1,12 @@
 # Test data
 
+#Part 1: Users
 User(bob):
     email:          bob@gmail.com
     password:       secret
     fullname:       Bob
     isAdmin:        true
-    
+ 
 User(jeff):
     email:          jeff@gmail.com
     password:       secret
@@ -31,30 +32,60 @@ User(rin):
     password:       secret
     fullname:       Rin  
 
+#Part 2: Categories
 Category(cat1):
     parentCategory: null
-    categoryTitle:  "finances économique"
+    categoryTitle:  "Marchés financiers"
     
 Category(cat2):
     parentCategory: null
-    categoryTitle:  "new cat 2"
+    categoryTitle:  "Immobilier"
 
-Category(cat21):
-    parentCategory: cat2
-    categoryTitle:  "new cat 21"
-
+Category(cat3):
+    parentCategory: null
+    categoryTitle:  "Investissement dans les PME"
+    
+Category(cat4):
+    parentCategory: null
+    categoryTitle:  "Produits structurés"
+    
 Category(cat11):
     parentCategory: cat1
-    categoryTitle:  "Immobilier"
+    categoryTitle:  "Obligations"
+    
+Category(cat111):
+    parentCategory: cat11
+    categoryTitle:  "In fine"
+    
+Category(cat112):
+    parentCategory: cat11
+    categoryTitle:  "Amortissable"
     
 Category(cat12):
     parentCategory: cat1
-    categoryTitle:  "matière première"
+    categoryTitle:  "Actions"
     
-Category(cat121):
-    parentCategory: cat12
-    categoryTitle:  "nouvelles technologies"       
+Category(cat13):
+    parentCategory: cat1
+    categoryTitle:  "Placement"     
+    
+Category(cat21):
+    parentCategory: cat2
+    categoryTitle:  "Investement locatif" 
 
+Category(cat23):
+    parentCategory: cat2
+    categoryTitle:  "Investissement en propriété"
+    
+Category(cat31):
+    parentCategory: cat3
+    categoryTitle:  "Direct"
+    
+Category(cat32):
+    parentCategory: cat3
+    categoryTitle:  "Holding"
+
+#Part 3 : Types
 Type(LONG_TERM):
     type: LONG TERM
     
@@ -64,61 +95,63 @@ Type(MIDDLE_TERM):
 Type(SHORT_TERM):
     type: SHORT TERM
 
+#Part 3 : Advices
 InvestementAdvice(adv1):
-    creationDate:    2016-01-26
-    title:           Investement 1
-    content:         New Advice Content
+    creationDate:    2015-01-26
+    title:           Investir en loi Pinel en 2015, malin ?
+    content:         Le Pinel est plus que jamais d’actualité en matière d’investissement immobilier cette année. Je l’avais mentionné dans un des mes articles précédents, les signes de succès de ce dispositif se traduisaient par un bond de la vente des logements neufs.
     author:          bob
     type:            LONG_TERM
     capitalGain:     35
-    confidenceIndex: 0.05
-    category:        cat121
+    confidenceIndex: 0.4
+    category:        cat2
 
 InvestementAdvice(adv2):
-    creationDate:    2016-02-10
-    title:           Investement 2
-    content:         New Advice Content2
+    creationDate:    2015-02-10
+    title:           Crescendo Garanti 3
+    content:         Crescendo garanti 3 est un produit structuré indexé sur le fond commun de placement Turgot Multigest international. Ce dernier est géré par la banque et financement du groupe Société Générale. Il est exposé au marché des actions et des obligations.
     author:          jeff
     type:            LONG_TERM
-    capitalGain:     35
+    capitalGain:     75
     confidenceIndex: 0.05
-    category:        cat12
+    category:        cat4
 
 InvestementAdvice(adv3):
-    creationDate:    2016-03-10
-    title:           Investement 3
-    content:         New Advice Content New Advice Content New Advice Content  New Advice Content
+    creationDate:    2015-03-10
+    title:           Investissez dans le bio
+    content:         Les chaînes de distribution alimentaires bio sont des acteurs déjà présents sur le marché. Nous vous proposons d’investir dans une de ces chaînes, et qui a pour projet d’ouvrir de nouvelles boutiques dans les mois à venir.
     author:          ana
     type:            SHORT_TERM
     capitalGain:     50
     confidenceIndex: 0.15
-    category:        cat121
+    category:        cat32
 
 InvestementAdvice(adv4):
-    creationDate:    2016-04-08
-    title:           Investement for Food
-    content:         Food Food Food Food Food Food Food Food Food Food Food 
+    creationDate:    2015-04-08
+    title:           PEA Sélection 1818
+    content:         Un PEA permet d’investir sur les marchés actions (principalement européens). Nous déterminons et gérons sa composition à partir d’OPCVM au sein de la banque privée 1818 ou au sein de la plateforme de Cholet Dupont partenaires.
     author:          bob
     type:            MIDDLE_TERM
-    capitalGain:     39
+    capitalGain:     89
     confidenceIndex: 0.13
-    category:        cat1
+    category:        cat12
     
 InvestementAdvice(adv5):
-    creationDate:    2016-05-08
-    title:           Investement 2 Peace
-    content:         Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love 
+    creationDate:    2015-05-08
+    title:           Twin 2011
+    content:         La performance du placement dépend de l’évolution des marchés actions de la zone Euro. Ce produit offre à l’investisseur la possibilité d’un gain au minimum égal à 8% par année écoulée et d’un mécanisme de remboursement anticipé.
     author:          rin
     type:            LONG_TERM
-    capitalGain:     2
+    capitalGain:     26
     confidenceIndex: 0.002
-    category:        cat12
+    category:        cat4
+    
 InvestementAdvice(adv6):
-    creationDate:    2016-05-08
-    title:           Investement for Power
-    content:         Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love Peace and Love 
+    creationDate:    2015-05-08
+    title:           Le fonctionnement du livret A
+    content:         C’est le placement le plus utilisé en France avec 61 millions d’épargnants. Neuf Français sur 10 possèdent un livret A et pourtant son taux ne cesse de baisser année après année.
     author:          rin
     type:            LONG_TERM
     capitalGain:     2
     confidenceIndex: 0.002
-    category:        cat21
+    category:        cat13
