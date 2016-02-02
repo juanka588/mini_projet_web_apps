@@ -1,7 +1,41 @@
-*{ You can use plain selenium command using the selenium tag }*
+#{fixture delete:'all', load:'initial-data.yml' /}
 
-#{selenium}
+#{selenium }
+	clearSession()
     // Open the home page, and check that no error occured
     open('/')
+     waitForPageToLoad(1000)
     assertNotTitle('Application error')
+#{/selenium}
+
+#{selenium 'Check home page'}
+	clearSession()
+    // Open the home page, and check that no error occured
+    open('/')
+    
+    // Check that the front post is present
+    assertTextPresent('Advice to help you')
+    assertTextPresent('Log In to write an advice')
+    assertTextPresent('About this blog')
+    assertTextPresent('Investement')
+    assertNotTitle('Application error')
+    
+    // Click on title
+    clickAndWait('link=Start Investing Today')
+    assertTextPresent('Advice to help you')
+    assertTextPresent('About this blog')
+	assertTextPresent('Log In to write an advice')
+	
+	
+#{/selenium}
+
+#{selenium 'Test search by title'}
+
+ 	// Click on 'Search by categories '
+ 	type('title', 'Investement')
+  	clickAndWait('css=input[type=submit]')
+    assertTextPresent('Log In to write an advice')
+    assertTextPresent('About this blog')
+    assertTextPresent('There is currently nothing to read here')
+	   
 #{/selenium}
